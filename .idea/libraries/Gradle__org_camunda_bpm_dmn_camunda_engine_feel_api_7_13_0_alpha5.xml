@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.camunda.bpm.dmn:camunda-engine-feel-api:7.13.0-alpha5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.camunda.bpm.dmn/camunda-engine-feel-api/7.13.0-alpha5/4250ab489d0b9193bb9f38496698336909d72fe8/camunda-engine-feel-api-7.13.0-alpha5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.camunda.bpm.dmn/camunda-engine-feel-api/7.13.0-alpha5/8311963ed653fc1b37fa4f3c1ac5644dd12726f6/camunda-engine-feel-api-7.13.0-alpha5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

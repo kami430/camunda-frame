@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.owasp.encoder:encoder:1.2.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.owasp.encoder/encoder/1.2.2/664346e62c3a95e1de5153db231bd283392a9532/encoder-1.2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.owasp.encoder/encoder/1.2.2/405b8ca895e5c039564d803a7e3fdb2eb57b5823/encoder-1.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

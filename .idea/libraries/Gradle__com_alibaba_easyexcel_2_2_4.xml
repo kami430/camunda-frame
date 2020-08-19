@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.alibaba:easyexcel:2.2.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.alibaba/easyexcel/2.2.4/78a242be0a5a8074f9addd0d8446eba5a0c0dd1e/easyexcel-2.2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.alibaba/easyexcel/2.2.4/4f0fc8bb4232dab741e95ea21b973a459d4ae5b1/easyexcel-2.2.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

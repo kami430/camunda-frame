@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-core:7.13.0-alpha5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.camunda.bpm.springboot/camunda-bpm-spring-boot-starter-webapp-core/7.13.0-alpha5/7cb70d2cecd63afa7e52dc301d3c9de7c6487c5f/camunda-bpm-spring-boot-starter-webapp-core-7.13.0-alpha5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.camunda.bpm.springboot/camunda-bpm-spring-boot-starter-webapp-core/7.13.0-alpha5/7cb23127b82c2d8109192a7b836d21034596a042/camunda-bpm-spring-boot-starter-webapp-core-7.13.0-alpha5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

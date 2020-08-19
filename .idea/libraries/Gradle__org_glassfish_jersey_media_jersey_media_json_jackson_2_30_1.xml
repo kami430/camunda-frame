@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.glassfish.jersey.media:jersey-media-json-jackson:2.30.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.jersey.media/jersey-media-json-jackson/2.30.1/962d2faa40e02d228bc6424bde5a894d7f1f3ed2/jersey-media-json-jackson-2.30.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.jersey.media/jersey-media-json-jackson/2.30.1/cdbfe1e2e0760aeda6145230e86acdc4393c4fdc/jersey-media-json-jackson-2.30.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

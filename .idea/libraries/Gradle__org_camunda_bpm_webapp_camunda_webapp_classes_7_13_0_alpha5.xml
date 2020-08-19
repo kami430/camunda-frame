@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.camunda.bpm.webapp:camunda-webapp:classes:7.13.0-alpha5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.camunda.bpm.webapp/camunda-webapp/7.13.0-alpha5/fd1348284d978730426d2c85c7ac8d793b62b27b/camunda-webapp-7.13.0-alpha5-classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.camunda.bpm.webapp/camunda-webapp/7.13.0-alpha5/d9158e59239421203cddb0ff40b9ffe05eca6327/camunda-webapp-7.13.0-alpha5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -186,7 +186,7 @@ public class AuthorityServiceImpl implements AuthorityService {
     /**
      * 授角色权限
      *
-     * @param userId
+     * @param roleId
      * @param permissionIds
      * @return
      */
@@ -208,8 +208,8 @@ public class AuthorityServiceImpl implements AuthorityService {
     /**
      * 授角色用户
      *
-     * @param userId
-     * @param permissionIds
+     * @param roleId
+     * @param userIds
      * @return
      */
     @Override

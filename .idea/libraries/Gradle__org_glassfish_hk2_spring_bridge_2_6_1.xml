@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.glassfish.hk2:spring-bridge:2.6.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.hk2/spring-bridge/2.6.1/5b8e5e55b655885728229f23088b7c5063d46ad3/spring-bridge-2.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.hk2/spring-bridge/2.6.1/88cc70709e9fb88e413f54ea266a9d427ee14b11/spring-bridge-2.6.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
