@@ -6,7 +6,6 @@ import lombok.Data;
 import org.camunda.bpm.engine.history.HistoricProcessInstance;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 public class HisProcessInstanceVO {
