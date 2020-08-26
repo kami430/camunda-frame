@@ -1,13 +1,13 @@
 package com.camunda.demo.business.controller;
 
+import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
-import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.camunda.bpm.engine.repository.DeploymentBuilder;
-import org.camunda.bpm.engine.repository.ProcessDefinition;
-import org.camunda.bpm.engine.task.Task;
+import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.AgendaFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +31,8 @@ public class TaskController {
     private TaskService taskService;
     @Autowired
     private HistoryService historyService;
+    @Autowired
+    private KieSession kieSession;
 
 
     @GetMapping("/start")
