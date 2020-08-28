@@ -1,0 +1,14 @@
+package rules
+import com.camunda.demo.base.utils.SpringContextUtil
+import org.camunda.bpm.engine.RepositoryService
+import com.camunda.demo.dataInterface.entity.authorization.LoginUser
+
+rule "rule-01"
+no-loop true
+    when
+    Object(account:"bilibli",kd:"sdd")
+    $user:LoginUser(id==90)
+    then
+    System.out.println(kd);
+    $user.setName("kls");
+end

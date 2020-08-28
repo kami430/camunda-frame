@@ -1,0 +1,9 @@
+package rules;
+dialect  "java"
+
+rule "rule02"
+    when
+        eval(true)
+    then
+        System.out.println("rule02-iknow");
+end
