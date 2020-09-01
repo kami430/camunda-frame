@@ -86,7 +86,7 @@ public class Ognl {
         if (o instanceof Number) {
             return true;
         } else if (o instanceof String) {
-            return NumberUtils.isNumber((String) o);
+            return NumberUtils.isCreatable((String) o);
         } else {
             return false;
         }
