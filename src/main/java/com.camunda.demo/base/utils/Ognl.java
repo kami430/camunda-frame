@@ -78,7 +78,7 @@ public class Ognl {
 
     /**
      * 判断对象是否为一个数值对象
-     * @see NumberUtils#isNumber(String)
+     * @see NumberUtils#isCreatable(String)
      * @param o
      * @return
      */
