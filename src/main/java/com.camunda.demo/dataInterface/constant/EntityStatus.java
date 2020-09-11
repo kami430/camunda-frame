@@ -10,7 +10,6 @@ public enum EntityStatus implements IBaseJPAEnum {
     FREEZE(2, "冻结"),
     INVALID(0, "失效");
 
-
     private Integer code;
 
     private String remark;

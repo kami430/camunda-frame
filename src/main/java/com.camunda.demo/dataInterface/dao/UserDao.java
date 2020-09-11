@@ -3,9 +3,11 @@ package com.camunda.demo.dataInterface.dao;
 import com.camunda.demo.base.repository.BaseJpaRepository;
 import com.camunda.demo.base.repository.Param;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface UserDao extends BaseJpaRepository<LoginUser, Long> {
 
     LoginUser findByAccount(String account);

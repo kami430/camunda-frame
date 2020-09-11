@@ -179,7 +179,7 @@ public class FileUtils {
     /**
      * 根据文件名/文件路径获取contentType
      *
-     * @param fileName
+     * @param path
      * @return
      * @throws IOException
      */
