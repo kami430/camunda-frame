@@ -1,5 +1,6 @@
 package com.camunda.demo.dataInterface.entity.authorization;
 
+import com.camunda.demo.base.shiro.config.ShiroLoginEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "credential")
 @Data
-public class LoginCredential implements Serializable {
+public class LoginCredential implements ShiroLoginEntity,Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

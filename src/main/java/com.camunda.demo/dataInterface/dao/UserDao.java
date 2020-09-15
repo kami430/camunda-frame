@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface UserDao extends BaseJpaRepository<LoginUser, Long> {
 
     LoginUser findByAccount(String account);

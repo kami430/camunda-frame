@@ -1,4 +1,4 @@
-package com.camunda.demo.base.shiro;
+package com.camunda.demo.base.shiro.config;
 
 import com.camunda.demo.base.utils.EncryptUtils;
 import com.camunda.demo.base.shiro.jwt.JWTUtil;

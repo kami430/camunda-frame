@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="941c66ac-9115-40b9-be51-5ad8262ace71" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/ShiroConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/UserCredentialsMatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/UserCredentialsMatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/UserRealm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/UserRealm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/utils/LoginUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/LoginUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/AttachementDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/AttachementDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/CredientialDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/CredientialDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/PermissionDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/PermissionDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/RoleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/RoleDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/LoginCredential.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/LoginCredential.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hXSangX9JCV7BeATmq1i6Pasnu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="941c66ac-9115-40b9-be51-5ad8262ace71" name="Default Changelist" comment="" />
+      <created>1600156011016</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600156011016</updated>
+      <workItem from="1600156038733" duration="429000" />
+      <workItem from="1600156544931" duration="1165000" />
+      <workItem from="1600158637495" duration="103000" />
+      <workItem from="1600158897848" duration="94000" />
+      <workItem from="1600160328575" duration="449000" />
+      <workItem from="1600161067083" duration="816000" />
+      <workItem from="1600162025208" duration="350000" />
+      <workItem from="1600162427753" duration="197000" />
+      <workItem from="1600162662376" duration="291000" />
+      <workItem from="1600162994718" duration="112000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="309" y="47" key="#Inspections" timestamp="1600162217091">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="309" y="47" key="#Inspections/0.0.1366.738@0.0.1366.738" timestamp="1600162217091" />
+    <state x="565" y="231" key="#Notifications" timestamp="1600162469889">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="565" y="231" key="#Notifications/0.0.1366.738@0.0.1366.738" timestamp="1600162469889" />
+    <state x="377" y="11" key="#Plugins" timestamp="1600161891691">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="377" y="11" key="#Plugins/0.0.1366.738@0.0.1366.738" timestamp="1600161891691" />
+    <state x="504" y="96" key="FileChooserDialogImpl" timestamp="1600160778675">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="504" y="96" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1600160778675" />
+    <state x="291" y="27" key="SettingsEditor" timestamp="1600162955242">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="291" y="27" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1600162955242" />
+  </component>
+</project>

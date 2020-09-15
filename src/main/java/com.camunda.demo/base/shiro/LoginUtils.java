@@ -1,4 +1,4 @@
-package com.camunda.demo.base.utils;
+package com.camunda.demo.base.shiro;
 
 import com.camunda.demo.base.http.ResponseEntity;
 import com.camunda.demo.base.shiro.jwt.JWTToken;

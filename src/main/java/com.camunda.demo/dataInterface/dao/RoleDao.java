@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface RoleDao extends BaseJpaRepository<Role, Long> {
     List<Role> findByIdIn(List<Long> roleIds);
 }
