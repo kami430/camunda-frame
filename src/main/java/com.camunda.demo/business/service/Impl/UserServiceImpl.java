@@ -9,7 +9,7 @@ import com.camunda.demo.dataInterface.constant.EntityStatus;
 import com.camunda.demo.dataInterface.dao.CamundaDao;
 import com.camunda.demo.dataInterface.dao.CredientialDao;
 import com.camunda.demo.dataInterface.dao.UserDao;
-import com.camunda.demo.dataInterface.entity.authorization.LoginCredential;
+import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import com.camunda.demo.dataInterface.entity.authorization.Permission;
 import com.camunda.demo.dataInterface.entity.authorization.Role;
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public LoginUser newUser(UserDto userDto) {
-        LoginCredential credential = credientialDao.getByLoginUserAccount(userDto.getAccount());
+        UserCredential credential = credientialDao.getByLoginUserAccount(userDto.getAccount());
         if (credential != null && credential.getLoginUser().getStatus() == EntityStatus.FREEZE)
             throw new BusinessException("新增用户失败,该账户已存在!");
         String salt = EncryptUtils.randomUUID();
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         loginUser.setAccount(userDto.getAccount());
         loginUser.setName(userDto.getName());
         loginUser.setStatus(EntityStatus.ACTIVE);
-        LoginCredential loginCredential = new LoginCredential();
+        UserCredential loginCredential = new UserCredential();
         loginCredential.setSalt(salt);
         loginCredential.setPassword(EncryptUtils.simpleHash(userDto.getPassword(), salt, 2));
         loginCredential.setLoginUser(loginUser);
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<LoginCredential> loginCredential() {
+    public List<UserCredential> loginCredential() {
         return credientialDao.getCrediential();
     }
 }

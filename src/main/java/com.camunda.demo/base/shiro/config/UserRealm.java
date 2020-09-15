@@ -2,7 +2,6 @@ package com.camunda.demo.base.shiro.config;
 
 import com.camunda.demo.base.shiro.jwt.JWTToken;
 import com.camunda.demo.base.shiro.jwt.JWTUtil;
-import com.camunda.demo.dataInterface.entity.authorization.LoginCredential;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -14,7 +13,11 @@ import org.springframework.util.StringUtils;
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
-    private ShiroLoginDao loginDao;
+    private ShiroUserDao userDao;
+    @Autowired
+    private ShiroRoleDao roleDao;
+    @Autowired
+    private ShiroPermissionDao permissionDao;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -33,7 +36,7 @@ public class UserRealm extends AuthorizingRealm {
         String password = JWTUtil.getPassword(token);
         if (StringUtils.isEmpty(account)) throw new UnknownAccountException("账号不能为空");
         if (StringUtils.isEmpty(password)) throw new IncorrectCredentialsException("账号或密码错误");
-        ShiroLoginEntity entity = loginDao.getShiroLoginEntity(account);
+        ShiroUser entity = userDao.getShiroUser(account);
         if (null == entity) {
             throw new IncorrectCredentialsException("账号或密码错误");
         }

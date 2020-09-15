@@ -20,18 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="941c66ac-9115-40b9-be51-5ad8262ace71" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/ShiroConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/UserCredentialsMatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/UserCredentialsMatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/UserRealm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/UserRealm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/utils/LoginUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/LoginUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroPermission.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroPermissionDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroRoleDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroLoginDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroUserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroLoginEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/UserRealm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/UserRealm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/AttachementDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/AttachementDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/service/Impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/CredientialDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/CredientialDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/PermissionDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/PermissionDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/RoleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/RoleDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/LoginCredential.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/LoginCredential.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/LoginCredential.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/UserCredential.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +47,14 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -64,6 +74,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -98,7 +109,7 @@
       <workItem from="1600162025208" duration="350000" />
       <workItem from="1600162427753" duration="197000" />
       <workItem from="1600162662376" duration="291000" />
-      <workItem from="1600162994718" duration="112000" />
+      <workItem from="1600162994718" duration="1357000" />
     </task>
     <servers />
   </component>
@@ -118,10 +129,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="309" y="47" key="#Inspections" timestamp="1600162217091">
+    <state x="511" y="51" key="#Inspections" timestamp="1600163659216">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="309" y="47" key="#Inspections/0.0.1366.738@0.0.1366.738" timestamp="1600162217091" />
+    <state x="511" y="51" key="#Inspections/0.0.1366.738@0.0.1366.738" timestamp="1600163659216" />
     <state x="565" y="231" key="#Notifications" timestamp="1600162469889">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -130,6 +141,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="377" y="11" key="#Plugins/0.0.1366.738@0.0.1366.738" timestamp="1600161891691" />
+    <state x="287" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1600163890244">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="287" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.738@0.0.1366.738" timestamp="1600163890244" />
     <state x="504" y="96" key="FileChooserDialogImpl" timestamp="1600160778675">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

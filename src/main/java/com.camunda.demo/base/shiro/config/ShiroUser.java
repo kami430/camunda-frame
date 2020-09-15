@@ -1,6 +1,6 @@
 package com.camunda.demo.base.shiro.config;
 
-public interface ShiroLoginEntity {
+public interface ShiroUser {
 
     String getPassword();
 

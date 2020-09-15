@@ -1,22 +1,22 @@
 package com.camunda.demo.dataInterface.dao;
 
 import com.camunda.demo.base.repository.BaseJpaRepository;
-import com.camunda.demo.base.shiro.config.ShiroLoginDao;
-import com.camunda.demo.base.shiro.config.ShiroLoginEntity;
-import com.camunda.demo.dataInterface.entity.authorization.LoginCredential;
+import com.camunda.demo.base.shiro.config.ShiroUserDao;
+import com.camunda.demo.base.shiro.config.ShiroUser;
+import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
 
 import java.util.List;
 
-public interface CredientialDao extends BaseJpaRepository<LoginCredential, Long>, ShiroLoginDao {
-    LoginCredential getByLoginUserAccount(String account);
+public interface CredientialDao extends BaseJpaRepository<UserCredential, Long>, ShiroUserDao {
+    UserCredential getByLoginUserAccount(String account);
 
     boolean deleteByLoginUserAccount(String account);
 
-    default List<LoginCredential> getCrediential() {
+    default List<UserCredential> getCrediential() {
         return param().findList();
     }
 
-    default ShiroLoginEntity getShiroLoginEntity(String account) {
+    default ShiroUser getShiroUser(String account) {
         return getByLoginUserAccount(account);
     }
 }

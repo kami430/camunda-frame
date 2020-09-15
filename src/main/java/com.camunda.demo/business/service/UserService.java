@@ -1,7 +1,7 @@
 package com.camunda.demo.business.service;
 
 import com.camunda.demo.business.DTO.UserDto;
-import com.camunda.demo.dataInterface.entity.authorization.LoginCredential;
+import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,5 +25,5 @@ public interface UserService {
 
     List<LoginUser> findPageUser(Map<String, Object> params, int page, int pageSize);
 
-    List<LoginCredential> loginCredential();
+    List<UserCredential> loginCredential();
 }
