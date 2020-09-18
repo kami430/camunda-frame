@@ -11,7 +11,7 @@
 .mtj.tmp/
 out/
 log/
-#.idea/
+.idea/
 .gradle/
 build/
 
