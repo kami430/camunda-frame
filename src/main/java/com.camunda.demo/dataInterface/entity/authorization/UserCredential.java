@@ -5,6 +5,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 密码表
@@ -12,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "credential")
 @Data
-public class UserCredential implements ShiroUser,Serializable {
+public class UserCredential implements ShiroUser, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

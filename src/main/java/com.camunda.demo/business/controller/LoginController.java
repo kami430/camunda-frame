@@ -4,10 +4,12 @@ import com.camunda.demo.base.http.ResponseEntity;
 import com.camunda.demo.base.shiro.LoginUtils;
 import com.camunda.demo.business.DTO.UserDto;
 import com.camunda.demo.business.service.UserService;
-import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
+import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.HashMap;

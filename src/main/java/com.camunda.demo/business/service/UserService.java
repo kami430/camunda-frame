@@ -1,8 +1,8 @@
 package com.camunda.demo.business.service;
 
 import com.camunda.demo.business.DTO.UserDto;
-import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
+import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

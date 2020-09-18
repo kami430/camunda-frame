@@ -20,6 +20,10 @@ public class SystemConfig {
         return 0;
     }
 
+    public static SystemConfig getConfig() {
+        return Static.getConfig();
+    }
+
     public static class Static {
         private static SystemConfig config;
 

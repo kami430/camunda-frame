@@ -19,21 +19,25 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="941c66ac-9115-40b9-be51-5ad8262ace71" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroPermission.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroPermissionDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroRoleDao.java" afterDir="false" />
+    <list default="true" id="941c66ac-9115-40b9-be51-5ad8262ace71" name="Default Changelist" comment="commit Shiro">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroLoginDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroUserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroLoginEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/configuration/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/camunda/CamundaDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/configuration/SystemConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/configuration/SystemConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroPermission.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroPermissionDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroRole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroRoleDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/ShiroService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/UserRealm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/shiro/config/UserRealm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/utils/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/base/utils/FileUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/service/Impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/business/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/CredientialDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/CredientialDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/LoginCredential.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/UserCredential.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/RoleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/RoleDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/Permission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/Permission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/UserCredential.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com.camunda.demo/dataInterface/entity/authorization/UserCredential.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +55,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -87,8 +91,30 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="spring.boot" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\projects\camunda-frame\src\main\java\com.camunda.demo\base" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="camunda-frame.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.camunda.demo.App" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.App" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpringBootOptions">
+    <option name="showAdditionalConfigNotification" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -109,8 +135,21 @@
       <workItem from="1600162025208" duration="350000" />
       <workItem from="1600162427753" duration="197000" />
       <workItem from="1600162662376" duration="291000" />
-      <workItem from="1600162994718" duration="1357000" />
+      <workItem from="1600162994718" duration="1537000" />
+      <workItem from="1600217038158" duration="3902000" />
+      <workItem from="1600221159233" duration="4427000" />
+      <workItem from="1600324605605" duration="431000" />
+      <workItem from="1600334278089" duration="592000" />
+      <workItem from="1600390133034" duration="5250000" />
     </task>
+    <task id="LOCAL-00001" summary="commit Shiro">
+      <created>1600164472538</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1600164472538</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,6 +167,10 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit Shiro" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit Shiro" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="511" y="51" key="#Inspections" timestamp="1600163659216">
       <screen x="0" y="0" width="1366" height="738" />
@@ -141,17 +184,77 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="377" y="11" key="#Plugins/0.0.1366.738@0.0.1366.738" timestamp="1600161891691" />
+    <state x="137" y="24" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600219945091">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="137" y="24" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1600219945091" />
+    <state x="488" y="74" key="#com.intellij.ide.util.MemberChooser" timestamp="1600222958219">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="488" y="74" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1600222958219" />
     <state x="287" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1600163890244">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="287" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.738@0.0.1366.738" timestamp="1600163890244" />
+    <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1600222254361">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.738@0.0.1366.738" timestamp="1600222254361" />
     <state x="504" y="96" key="FileChooserDialogImpl" timestamp="1600160778675">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="504" y="96" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1600160778675" />
-    <state x="291" y="27" key="SettingsEditor" timestamp="1600162955242">
+    <state width="1323" height="227" key="GridCell.Tab.0.bottom" timestamp="1600393478187">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="291" y="27" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1600162955242" />
+    <state width="1323" height="227" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1600393478187" />
+    <state width="1323" height="227" key="GridCell.Tab.0.center" timestamp="1600393478187">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1600393478187" />
+    <state width="1323" height="227" key="GridCell.Tab.0.left" timestamp="1600393478187">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1600393478187" />
+    <state width="1323" height="227" key="GridCell.Tab.0.right" timestamp="1600393478187">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1600393478187" />
+    <state width="1323" height="227" key="GridCell.Tab.1.bottom" timestamp="1600230647324">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1600230647324" />
+    <state width="1323" height="227" key="GridCell.Tab.1.center" timestamp="1600230647324">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1600230647324" />
+    <state width="1323" height="227" key="GridCell.Tab.1.left" timestamp="1600230647324">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1600230647324" />
+    <state width="1323" height="227" key="GridCell.Tab.1.right" timestamp="1600230647324">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1600230647324" />
+    <state width="1323" height="227" key="GridCell.Tab.2.bottom" timestamp="1600230647325">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.2.bottom/0.0.1366.738@0.0.1366.738" timestamp="1600230647325" />
+    <state width="1323" height="227" key="GridCell.Tab.2.center" timestamp="1600230647325">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.2.center/0.0.1366.738@0.0.1366.738" timestamp="1600230647325" />
+    <state width="1323" height="227" key="GridCell.Tab.2.left" timestamp="1600230647324">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.2.left/0.0.1366.738@0.0.1366.738" timestamp="1600230647324" />
+    <state width="1323" height="227" key="GridCell.Tab.2.right" timestamp="1600230647325">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.2.right/0.0.1366.738@0.0.1366.738" timestamp="1600230647325" />
+    <state x="291" y="27" key="SettingsEditor" timestamp="1600393246058">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="291" y="27" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1600393246058" />
   </component>
 </project>

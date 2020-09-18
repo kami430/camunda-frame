@@ -21,7 +21,7 @@ public class FileUtils {
 
     private static String FILEDESK = "D:/uploadPath4J";
 
-    private static SystemConfig config = SystemConfig.Static.getConfig();
+    private static SystemConfig config = SystemConfig.getConfig();
 
     /**
      * 初始化配置的文件路径

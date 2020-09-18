@@ -17,9 +17,9 @@ public class Permission {
 
     private String name;
 
-    @ManyToMany(mappedBy = "permissions",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "permissions", fetch = FetchType.LAZY)
     private List<LoginUser> loginUsers;
 
-    @ManyToMany(mappedBy = "permissions",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "permissions", fetch = FetchType.LAZY)
     private List<Role> roles;
 }

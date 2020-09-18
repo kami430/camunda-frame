@@ -1,9 +1,5 @@
-package com.camunda.demo.base.configuration;
+package com.camunda.demo.base.camunda;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationConfig;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -18,7 +14,7 @@ import javax.sql.DataSource;
  * 双数据源，如不需要注释该类
  */
 @Configuration
-public class Database {
+public class CamundaDatabase {
 
     @Autowired
     private DbProperties dbProperties;
