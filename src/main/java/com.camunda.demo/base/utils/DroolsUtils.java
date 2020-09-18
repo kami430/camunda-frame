@@ -17,21 +17,18 @@ import org.kie.internal.builder.KnowledgeBuilderFactory;
 import org.kie.internal.io.ResourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
-public class RuleUtils {
+public class DroolsUtils {
 
     private final static String BASE_RULE_PATH = "rules/";
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(RuleUtils.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(DroolsUtils.class);
 
     private static KieServices kieServices = KieServices.Factory.get();
 

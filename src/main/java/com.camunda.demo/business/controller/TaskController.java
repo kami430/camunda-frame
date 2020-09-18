@@ -1,6 +1,6 @@
 package com.camunda.demo.business.controller;
 
-import com.camunda.demo.base.utils.RuleUtils;
+import com.camunda.demo.base.utils.DroolsUtils;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.RepositoryService;
@@ -75,7 +75,7 @@ public class TaskController {
 
     @GetMapping("/rule")
     public LoginUser rule() throws IOException {
-        KieSession session = RuleUtils.newSession("rule01", "rule02");
+        KieSession session = DroolsUtils.newSession("rule01", "rule02");
         LoginUser user = new LoginUser();
         user.setName("haha");
         user.setId(90L);
