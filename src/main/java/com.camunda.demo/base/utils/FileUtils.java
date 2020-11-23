@@ -1,8 +1,8 @@
 package com.camunda.demo.base.utils;
 
 import com.camunda.demo.base.configuration.SystemConfig;
-import com.camunda.demo.base.http.BusinessException;
-import com.camunda.demo.base.http.ResponseCode;
+import com.camunda.demo.base.response.BusinessException;
+import com.camunda.demo.base.response.ResponseCode;
 import org.apache.commons.io.IOUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;

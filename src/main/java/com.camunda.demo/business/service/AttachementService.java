@@ -1,6 +1,6 @@
 package com.camunda.demo.business.service;
 
-import com.camunda.demo.business.DTO.FileDto;
+import com.camunda.demo.business.form.FileForm;
 import com.camunda.demo.dataInterface.entity.Attachement;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,7 +12,7 @@ public interface AttachementService {
 
     List<Attachement> getAll();
 
-    List<Attachement> listFile(FileDto fileDto);
+    List<Attachement> listFile(FileForm fileForm);
 
     Attachement uploadFile(MultipartFile file) throws IOException;
 

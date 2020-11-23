@@ -1,6 +1,6 @@
 package com.camunda.demo.business.controller;
 
-import com.camunda.demo.business.DTO.FileDto;
+import com.camunda.demo.business.form.FileForm;
 import com.camunda.demo.business.service.AttachementService;
 import com.camunda.demo.dataInterface.entity.Attachement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class FileController {
     }
 
     @GetMapping("/listFile")
-    public List<Attachement> listFile(FileDto fileDto){
-        return  attachementService.listFile(fileDto);
+    public List<Attachement> listFile(FileForm fileForm){
+        return  attachementService.listFile(fileForm);
     }
 }

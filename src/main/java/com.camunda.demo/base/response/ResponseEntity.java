@@ -1,4 +1,4 @@
-package com.camunda.demo.base.http;
+package com.camunda.demo.base.response;
 
 import java.util.Collections;
 import java.util.HashMap;

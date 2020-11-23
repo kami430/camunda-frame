@@ -2,22 +2,19 @@ package com.camunda.demo.business.service.Impl;
 
 import com.camunda.demo.base.repository.Pager;
 import com.camunda.demo.base.utils.FileUtils;
-import com.camunda.demo.business.DTO.FileDto;
+import com.camunda.demo.business.form.FileForm;
 import com.camunda.demo.business.service.AttachementService;
 import com.camunda.demo.dataInterface.constant.EntityStatus;
 import com.camunda.demo.dataInterface.dao.AttachementDao;
 import com.camunda.demo.dataInterface.entity.Attachement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class AttachementServiceImpl implements AttachementService {
@@ -30,13 +27,9 @@ public class AttachementServiceImpl implements AttachementService {
     }
 
     @Override
-    public List<Attachement> listFile(FileDto fileDto) {
-        Map<String, Object> params = new HashMap<>();
-        if (!StringUtils.isEmpty(fileDto.getName()))
-            params.put("name", fileDto.getName());
-        if (!StringUtils.isEmpty(fileDto.getExt()))
-            params.put("ext", fileDto.getExt());
-        return attachementDao.findPageByMoreField(params, Pager.of(fileDto.getPage(), fileDto.getPageSize()));
+    public List<Attachement> listFile(FileForm fileForm) {
+        return attachementDao.findByExample(fileForm.buildEntity(),
+                Pager.of(fileForm.getPage(), fileForm.getPageSize())).getContent();
     }
 
     @Override

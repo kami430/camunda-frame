@@ -1,6 +1,6 @@
 package com.camunda.demo.business.service;
 
-import com.camunda.demo.business.DTO.UserDto;
+import com.camunda.demo.business.form.UserForm;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface UserService {
     @Transactional
-    LoginUser newUser(UserDto userDto);
+    LoginUser newUser(UserForm userForm);
 
     @Transactional
     void deleteUser(String account);

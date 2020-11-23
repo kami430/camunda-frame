@@ -1,6 +1,6 @@
 package com.camunda.demo.business.service.Impl;
 
-import com.camunda.demo.base.http.BusinessException;
+import com.camunda.demo.base.response.BusinessException;
 import com.camunda.demo.business.service.AuthorityService;
 import com.camunda.demo.dataInterface.dao.CamundaDao;
 import com.camunda.demo.dataInterface.dao.PermissionDao;

@@ -1,8 +1,8 @@
 package com.camunda.demo.business.controller;
 
-import com.camunda.demo.base.http.ResponseEntity;
+import com.camunda.demo.base.response.ResponseEntity;
 import com.camunda.demo.base.shiro.LoginUtils;
-import com.camunda.demo.business.DTO.UserDto;
+import com.camunda.demo.business.form.UserForm;
 import com.camunda.demo.business.service.UserService;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
@@ -38,13 +38,9 @@ public class LoginController {
     }
 
     @GetMapping("/newUser")
-    public ResponseEntity newUser() {
+    public ResponseEntity newUser(UserForm userForm) {
         try {
-            UserDto dto = new UserDto();
-            dto.setAccount("jordan");
-            dto.setName("jordan");
-            dto.setPassword("kermit");
-            return ResponseEntity.ok(userService.newUser(dto));
+            return ResponseEntity.ok(userService.newUser(userForm));
         } catch (Exception e) {
             return ResponseEntity.ok(new Date());
         }

@@ -1,4 +1,4 @@
-package com.camunda.demo.base.http;
+package com.camunda.demo.base.response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;

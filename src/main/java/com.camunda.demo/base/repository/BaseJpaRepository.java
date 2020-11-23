@@ -1,5 +1,6 @@
 package com.camunda.demo.base.repository;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -25,6 +26,10 @@ public interface BaseJpaRepository<T,ID extends Serializable> extends JpaReposit
     T findByKey(ID id);
 
     List<T> findByField(String field,Object value);
+
+    T findByExample(T entity);
+
+    Page<T> findByExample(T entity, Pageable pageable);
 
     List<T> findByHql(String hql, Object... fields);
 

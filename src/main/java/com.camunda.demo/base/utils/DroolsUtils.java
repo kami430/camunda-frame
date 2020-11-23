@@ -30,7 +30,7 @@ public class DroolsUtils {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(DroolsUtils.class);
 
-    private static KieServices kieServices = KieServices.Factory.get();
+    private final static KieServices KIE_SERVICES = KieServices.Factory.get();
 
     public static KieSession newSession(String... paths) {
         KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
@@ -47,12 +47,27 @@ public class DroolsUtils {
         return kbase.newKieSession();
     }
 
+    /**
+     * 读取drools包,可以根据实际需要使用
+     *
+     * @param pkg
+     * @return
+     * @throws IOException
+     */
+    @Deprecated
     public static KieSession pkgSession(String pkg) throws IOException {
-        KieFileSystem kieFileSystem = kieFileSystem(pkg, false);
-        KieContainer kieContainer = kieContainer(kieFileSystem);
-        return kieSession(kieContainer);
+        return pkgSession(pkg, false);
     }
 
+    /**
+     * 读取drools包,可以根据实际需要使用
+     *
+     * @param pkg
+     * @param deep - true:包含子文件夹,false:不包含子文件夹
+     * @return
+     * @throws IOException
+     */
+    @Deprecated
     public static KieSession pkgSession(String pkg, boolean deep) throws IOException {
         KieFileSystem kieFileSystem = kieFileSystem(pkg, deep);
         KieContainer kieContainer = kieContainer(kieFileSystem);
@@ -60,7 +75,7 @@ public class DroolsUtils {
     }
 
     private static KieFileSystem kieFileSystem(String pkg, boolean deep) throws IOException {
-        KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
+        KieFileSystem kieFileSystem = KIE_SERVICES.newKieFileSystem();
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         String locationPattern = "classpath*:" + BASE_RULE_PATH + (pkg != null ? pkg : "./") + (deep ? "/**" : "/") + "*.drl";
         final Resource[] resources = resolver.getResources(locationPattern);
@@ -71,11 +86,11 @@ public class DroolsUtils {
     }
 
     private static KieContainer kieContainer(KieFileSystem kieFileSystem) {
-        final KieRepository kieRepository = kieServices.getRepository();
+        final KieRepository kieRepository = KIE_SERVICES.getRepository();
         kieRepository.addKieModule(kieRepository::getDefaultReleaseId);
-        KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
+        KieBuilder kieBuilder = KIE_SERVICES.newKieBuilder(kieFileSystem);
         kieBuilder.buildAll();
-        return kieServices.newKieContainer(kieRepository.getDefaultReleaseId());
+        return KIE_SERVICES.newKieContainer(kieRepository.getDefaultReleaseId());
     }
 
     private static KieBase kieBase(KieContainer kieContainer) {

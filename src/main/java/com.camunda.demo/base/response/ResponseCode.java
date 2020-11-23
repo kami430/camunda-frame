@@ -1,4 +1,4 @@
-package com.camunda.demo.base.http;
+package com.camunda.demo.base.response;
 
 public enum ResponseCode {
 

@@ -1,6 +1,6 @@
 package com.camunda.demo.base.utils;
 
-import com.camunda.demo.base.http.BusinessException;
+import com.camunda.demo.base.response.BusinessException;
 
 /**
  * @author <a href="mailto:ningyaobai@gzkit.com.cn">bernix</a>

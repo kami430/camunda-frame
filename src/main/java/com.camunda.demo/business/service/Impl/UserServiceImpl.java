@@ -1,9 +1,9 @@
 package com.camunda.demo.business.service.Impl;
 
-import com.camunda.demo.base.http.BusinessException;
+import com.camunda.demo.base.response.BusinessException;
 import com.camunda.demo.base.repository.Pager;
 import com.camunda.demo.base.utils.EncryptUtils;
-import com.camunda.demo.business.DTO.UserDto;
+import com.camunda.demo.business.form.UserForm;
 import com.camunda.demo.business.service.UserService;
 import com.camunda.demo.dataInterface.constant.EntityStatus;
 import com.camunda.demo.dataInterface.dao.CamundaDao;
@@ -34,25 +34,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public LoginUser newUser(UserDto userDto) {
-        UserCredential credential = credientialDao.getByLoginUserAccount(userDto.getAccount());
+    public LoginUser newUser(UserForm userForm) {
+        UserCredential credential = credientialDao.getByLoginUserAccount(userForm.getAccount());
         if (credential != null && credential.getLoginUser().getStatus() == EntityStatus.FREEZE)
             throw new BusinessException("新增用户失败,该账户已存在!");
         String salt = EncryptUtils.randomUUID();
-        LoginUser loginUser = new LoginUser();
-        loginUser.setAccount(userDto.getAccount());
-        loginUser.setName(userDto.getName());
+        LoginUser loginUser = userForm.buildEntity();
         loginUser.setStatus(EntityStatus.ACTIVE);
         UserCredential loginCredential = new UserCredential();
         loginCredential.setSalt(salt);
-        loginCredential.setPassword(EncryptUtils.simpleHash(userDto.getPassword(), salt, 2));
+        loginCredential.setPassword(EncryptUtils.simpleHash(userForm.getPassword(), salt, 2));
         loginCredential.setLoginUser(loginUser);
         if (credential != null && credential.getLoginUser().getStatus() == EntityStatus.INVALID) {
             loginCredential.setId(credential.getId());
             loginUser.setId(credential.getLoginUser().getId());
         }
         credientialDao.save(loginCredential);
-        camundaDao.newUser(userDto.getAccount());
+        camundaDao.newUser(userForm.getAccount());
         return loginCredential.getLoginUser();
     }
 

@@ -1,4 +1,4 @@
-package com.camunda.demo.base.http;
+package com.camunda.demo.base.response;
 
 /**
  * @author <a href="mailto:ningyaobai@gzkit.com.cn">bernix</a>

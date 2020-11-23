@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.BeansException;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
@@ -39,8 +41,8 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     }
 
     @Override
-    public Param<T> param(){
-        return Param.forClass(this.clazz,this.entityManager);
+    public Param<T> param() {
+        return Param.forClass(this.clazz, this.entityManager);
     }
 
     @Override
@@ -150,11 +152,23 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     }
 
     @Override
+    public T findByExample(T entity) {
+        Example<T> example = Example.of(entity);
+        return findOne(example).orElse(null);
+    }
+
+    @Override
+    public Page<T> findByExample(T entity, Pageable pageable) {
+        Example example = Example.of(entity);
+        return findAll(example, pageable);
+    }
+
+    @Override
     public List<T> findByHql(String hql, Object... fields) {
         List<T> list = new ArrayList<>();
         try {
             Query query = entityManager.createQuery(hql);
-            for(int i=0;i<fields.length;i++)query.setParameter(i+1,fields[i]);
+            for (int i = 0; i < fields.length; i++) query.setParameter(i + 1, fields[i]);
             list = query.getResultList();
             entityManager.close();
         } catch (Exception e) {
@@ -165,7 +179,7 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
 
     @Override
     public List<T> findByHql(String hql, Map<String, Object> fields) {
-        return findPageByHql(hql,fields,null);
+        return findPageByHql(hql, fields, null);
     }
 
     @Override
@@ -173,7 +187,7 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         List<T> list = new ArrayList<>();
         try {
             Query query = entityManager.createQuery(hql);
-            if(fields!=null)fields.forEach((key, field) -> query.setParameter(key, field));
+            if (fields != null) fields.forEach((key, field) -> query.setParameter(key, field));
             if (pageable != null) {
                 query.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
                 query.setMaxResults(pageable.getPageSize());
@@ -191,7 +205,7 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         List<Map> list = new ArrayList<>();
         try {
             Query query = entityManager.createNativeQuery(sql);
-            for(int i=0;i<fields.length;i++)query.setParameter(i+1,fields[i]);
+            for (int i = 0; i < fields.length; i++) query.setParameter(i + 1, fields[i]);
             query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
             list = query.getResultList();
             entityManager.close();
@@ -211,7 +225,7 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         List<Map> list = new ArrayList<>();
         try {
             Query query = entityManager.createNativeQuery(sql);
-            if(fields!=null)fields.forEach((key, field) -> query.setParameter(key, field));
+            if (fields != null) fields.forEach((key, field) -> query.setParameter(key, field));
             query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
             if (pageable != null) {
                 query.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
@@ -226,15 +240,15 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     }
 
     @Override
-    public T findOne(Map<String,Object> fields){
+    public T findOne(Map<String, Object> fields) {
         T t = null;
         try {
             String sql = "from " + clazz.getName() + " u WHERE 1=1";
             StringBuilder fieldBuilder = new StringBuilder();
-            if(fields!=null)fields.forEach((field, value) -> fieldBuilder.append(" AND u." + field + "=:" + field));
+            if (fields != null) fields.forEach((field, value) -> fieldBuilder.append(" AND u." + field + "=:" + field));
             Query query = entityManager.createQuery(sql + fieldBuilder.toString());
-            if(fields!=null)fields.forEach((field, value) -> query.setParameter(field, value));
-            t = (T)query.getSingleResult();
+            if (fields != null) fields.forEach((field, value) -> query.setParameter(field, value));
+            t = (T) query.getSingleResult();
             entityManager.close();
         } catch (Exception e) {
             logger.error("----------查询列表出错----------", e);
@@ -243,11 +257,11 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     }
 
     @Override
-    public T findOne(Param param){
+    public T findOne(Param param) {
         T t = null;
         try {
             Query query = entityManager.createQuery(param.build());
-            t = (T)query.getSingleResult();
+            t = (T) query.getSingleResult();
             entityManager.close();
         } catch (Exception e) {
             logger.error("----------查询列表出错----------", e);
@@ -272,9 +286,9 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         try {
             String sql = "from " + tablename + " u WHERE 1=1";
             StringBuilder fieldBuilder = new StringBuilder();
-            if(fields!=null)fields.forEach((field, value) -> fieldBuilder.append(" AND u." + field + "=:" + field));
+            if (fields != null) fields.forEach((field, value) -> fieldBuilder.append(" AND u." + field + "=:" + field));
             Query query = entityManager.createQuery(sql + fieldBuilder.toString());
-            if(fields!=null)fields.forEach((field, value) -> query.setParameter(field, value));
+            if (fields != null) fields.forEach((field, value) -> query.setParameter(field, value));
             if (pageable != null) {
                 query.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
                 query.setMaxResults(pageable.getPageSize());
@@ -336,12 +350,12 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     }
 
     @Override
-    public Class<T> getClazz(){
+    public Class<T> getClazz() {
         return this.clazz;
     }
 
     @Override
-    public EntityManager getEntityManager(){
+    public EntityManager getEntityManager() {
         return this.entityManager;
     }
 
@@ -383,16 +397,17 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
 
     /**
      * 获取源对象空值字段
+     *
      * @param source 源对象
      * @return
      */
-    private static String[] getNullPropertyNames(Object source){
+    private static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         PropertyDescriptor[] pds = src.getPropertyDescriptors();
         Set<String> emptyNames = new HashSet<>();
-        for(PropertyDescriptor pd:pds){
+        for (PropertyDescriptor pd : pds) {
             Object srcValue = src.getPropertyValue(pd.getName());
-            if(srcValue == null) emptyNames.add(pd.getName());
+            if (srcValue == null) emptyNames.add(pd.getName());
         }
         String[] result = new String[emptyNames.size()];
         return emptyNames.toArray(result);
@@ -400,11 +415,12 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
 
     /**
      * 复制源对象到目标对象中（排除空值）
+     *
      * @param source 源对象
      * @param target 目标对象
      * @throws BeansException
      */
-    private void copyPropertiesExcludeNull(Object source,Object target)throws BeansException{
-        BeanUtils.copyProperties(source,target,getNullPropertyNames(source));
+    private void copyPropertiesExcludeNull(Object source, Object target) throws BeansException {
+        BeanUtils.copyProperties(source, target, getNullPropertyNames(source));
     }
 }

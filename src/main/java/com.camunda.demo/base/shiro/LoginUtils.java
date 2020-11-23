@@ -1,6 +1,6 @@
 package com.camunda.demo.base.shiro;
 
-import com.camunda.demo.base.http.ResponseEntity;
+import com.camunda.demo.base.response.ResponseEntity;
 import com.camunda.demo.base.shiro.jwt.JWTToken;
 import com.camunda.demo.base.shiro.jwt.JWTUtil;
 import org.apache.shiro.SecurityUtils;
