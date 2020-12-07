@@ -1,5 +1,8 @@
 package com.camunda.demo;
 
+import com.camunda.demo.business.form.UserForm;
+import com.camunda.demo.dataInterface.constant.EntityStatus;
+import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -10,13 +13,13 @@ import java.util.function.Consumer;
 
 public class Apptest {
 
-    public static void main(String[] args) throws IOException {
-//        Student a = new Student();
-//        instance(a, People.class, tar -> System.out.println(tar));
-        LocalDate now = LocalDate.now();
-        now.minusMonths(1);
-        System.out.println(now.getMonthValue());
-        System.out.println(now);
+    public static void main(String[] args) {
+        UserForm form = new UserForm();
+        form.setAccount("hello");
+        form.setStatus(EntityStatus.ACTIVE);
+        LoginUser user = form.buildEntity();
+        System.out.println(user.getAccount());
+        System.out.println(user.getStatus().getCode());
     }
 
     public static <T> void instance(Object target, Class<T> clazz, Consumer<T> consumer) {
@@ -25,11 +28,11 @@ public class Apptest {
         }
     }
 
-    public static class People{
+    public static class People {
 
     }
 
-    public static class Student extends People{
+    public static class Student extends People {
 
     }
 }

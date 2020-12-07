@@ -7,9 +7,7 @@ import com.camunda.demo.business.service.UserService;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -51,7 +49,10 @@ public class LoginController {
         return userService.findPageUser(new HashMap<>(), 1, 20);
     }
 
-
+    @PostMapping("/haha")
+    public void haha(@RequestBody UserForm userForm){
+        System.out.println(userForm);
+    }
 
 
 }
