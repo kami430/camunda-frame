@@ -34,9 +34,8 @@ dependencies {
     implementation "org.kie:kie-api:$droolsVersion"
     implementation "org.drools:drools-compiler:$droolsVersion"
     // 工具包
-    implementation "com.alibaba:easyexcel:2.2.4"
+    implementation "org.jxls:jxls-poi:2.9.0"
     implementation "com.alibaba:fastjson:1.2.71"
-
     // 辅助包
     compileOnly "org.projectlombok:lombok:1.18.12"
     annotationProcessor "org.projectlombok:lombok:1.18.12"
