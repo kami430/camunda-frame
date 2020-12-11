@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties("system")
 public class SystemConfig {
-    private String fileDesk;
 
+    private String fileDesk;
 
     @Bean
     public Integer initConfig() {
