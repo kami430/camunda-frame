@@ -2,14 +2,10 @@ package com.camunda.demo;
 
 import com.camunda.demo.business.form.UserForm;
 import com.camunda.demo.dataInterface.constant.EntityStatus;
-import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
-import org.springframework.beans.BeanUtils;
-import org.springframework.util.StringUtils;
+import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.cglib.beans.BeanMap;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDate;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -21,7 +17,10 @@ public class Apptest {
         form.setAccount("hello");
         form.setStatus(EntityStatus.ACTIVE);
         Map<String, Object> model = new HashMap<>();
-        BeanUtils.copyProperties (form, model);
+        BeanMap beanMap = BeanMap.create(form);
+        for (Object key : beanMap.keySet()) {
+            model.put(key.toString(), beanMap.get(key));
+        }
         for (String key : model.keySet()) {
             System.out.println(model.get(key));
         }

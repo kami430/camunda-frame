@@ -28,14 +28,19 @@ public enum EntityStatus implements IBaseEnum {
         return this.code;
     }
 
+    public String toString() {
+        return getCode().toString();
+    }
+
     /**
      * 对应@RequestBody枚举的情况,静态方法,方法名任意,返回类型为当前类,关键为@JsonCreator注解
+     *
      * @param code
      * @return
      */
     @JsonCreator
-    public static EntityStatus getStatus(Integer code){
-        return IBaseEnum.ofCode(EntityStatus.class,code);
+    public static EntityStatus getStatus(Integer code) {
+        return IBaseEnum.ofCode(EntityStatus.class, code);
     }
 
     /**

@@ -4,7 +4,6 @@ import com.camunda.demo.base.response.ResponseEntity;
 import com.camunda.demo.base.shiro.LoginUtils;
 import com.camunda.demo.base.utils.JxlsUtils;
 import com.camunda.demo.business.form.UserForm;
-import com.camunda.demo.business.funcs.Func1;
 import com.camunda.demo.business.service.UserService;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.util.*;
 
 @RestController
@@ -71,8 +69,7 @@ public class LoginController {
         Map<String, Object> dataList = new HashMap<>();
         dataList.put("dt", models);
         dataList.put("deptname","肇庆市");
-        JxlsUtils.setFunc("fn", new Func1())
-                .exportExcel("tmpl.xlsx", response, dataList);
+        JxlsUtils.exportExcel("tmpl.xlsx", response, dataList);
     }
 
 }
