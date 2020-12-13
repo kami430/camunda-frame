@@ -8,6 +8,7 @@ import com.camunda.demo.business.service.UserService;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +39,11 @@ public class LoginController {
     @GetMapping("/newUser")
     public ResponseEntity newUser(UserForm userForm) {
         try {
-            return ResponseEntity.ok(userService.newUser(userForm));
+            UserForm uf = new UserForm();
+            uf.setAccount("haha");
+            uf.setName("kele");
+            uf.setPassword("bilibili");
+            return ResponseEntity.ok(userService.newUser(uf));
         } catch (Exception e) {
             return ResponseEntity.ok(new Date());
         }
@@ -50,7 +55,7 @@ public class LoginController {
     }
 
     @PostMapping("/haha")
-    public void haha(@RequestBody UserForm userForm) {
+    public void haha(@Validated UserForm userForm) {
         System.out.println(userForm);
     }
 
@@ -68,8 +73,22 @@ public class LoginController {
         }
         Map<String, Object> dataList = new HashMap<>();
         dataList.put("dt", models);
-        dataList.put("deptname","肇庆市");
+        dataList.put("deptname", "肇庆市");
         JxlsUtils.exportExcel("tmpl.xlsx", response, dataList);
+    }
+
+    @GetMapping("/hali")
+    public ResponseEntity hali() {
+        try {
+            UserForm uf = new UserForm();
+            uf.setAccount("haha");
+            uf.setName("kele");
+            uf.setPassword("bilibili");
+            return ResponseEntity.ok(userService.newUser(uf));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.error(e.getMessage());
+        }
     }
 
 }

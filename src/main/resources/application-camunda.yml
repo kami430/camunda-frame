@@ -1,7 +1,7 @@
 spring:
   datasource-proc:  #流程数据库
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/camunda_process?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    url: jdbc:mysql://localhost:3306/camunda_process?characterEncoding=utf8&nullCatalogMeansCurrent=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource

@@ -1,6 +1,7 @@
 package com.camunda.demo.dataInterface.entity;
 
-import com.camunda.demo.dataInterface.constant.EntityStatus;
+import com.camunda.demo.dataInterface.constant.IEntityStatus;
+import com.camunda.demo.base.constant.IConst;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -29,6 +30,6 @@ public class Attachement {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
-    @Convert(converter = EntityStatus.Convert.class)
-    private EntityStatus status;
+    @IConst(IEntityStatus.class)
+    private Integer status;
 }

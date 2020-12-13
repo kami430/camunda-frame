@@ -1,8 +1,5 @@
 package com.camunda.demo.base.repository;
 
-import com.camunda.demo.dataInterface.constant.EntityStatus;
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.Converter;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.ParameterizedType;

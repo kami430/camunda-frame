@@ -1,6 +1,7 @@
 package com.camunda.demo.dataInterface.entity.authorization;
 
-import com.camunda.demo.dataInterface.constant.EntityStatus;
+import com.camunda.demo.dataInterface.constant.IEntityStatus;
+import com.camunda.demo.base.constant.IConst;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,6 +29,8 @@ public class LoginUser implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Permission> permissions;
 
-    @Convert(converter = EntityStatus.Convert.class)
-    private EntityStatus status;
+    //    @Convert(converter = EntityStatus.Convert.class)
+    //    private EntityStatus status;
+    @IConst(IEntityStatus.class)
+    private Integer status;
 }

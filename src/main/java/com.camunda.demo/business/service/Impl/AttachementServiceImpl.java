@@ -4,7 +4,7 @@ import com.camunda.demo.base.repository.Pager;
 import com.camunda.demo.base.utils.FileUtils;
 import com.camunda.demo.business.form.FileForm;
 import com.camunda.demo.business.service.AttachementService;
-import com.camunda.demo.dataInterface.constant.EntityStatus;
+import com.camunda.demo.dataInterface.constant.IEntityStatus;
 import com.camunda.demo.dataInterface.dao.AttachementDao;
 import com.camunda.demo.dataInterface.entity.Attachement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class AttachementServiceImpl implements AttachementService {
         Attachement attachement = new Attachement();
         attachement.setName(FileUtils.getUploadFileName(file));
         attachement.setExt(FileUtils.getUploadFileExt(file));
-        attachement.setStatus(EntityStatus.ACTIVE);
+        attachement.setStatus(IEntityStatus.ACTIVE);
         attachement.setSize(file.getSize());
         attachement.setPath(path);
         attachement.setUploadTime(now);
