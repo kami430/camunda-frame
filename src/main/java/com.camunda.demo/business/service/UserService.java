@@ -1,5 +1,6 @@
 package com.camunda.demo.business.service;
 
+import com.camunda.demo.base.repository.Pager;
 import com.camunda.demo.business.form.UserForm;
 import com.camunda.demo.dataInterface.entity.authorization.LoginUser;
 import com.camunda.demo.dataInterface.entity.authorization.UserCredential;
@@ -23,7 +24,7 @@ public interface UserService {
 
     LoginUser getLoginUserByAccount(String account);
 
-    List<LoginUser> findPageUser(Map<String, Object> params, int page, int pageSize);
+    Pager<LoginUser> findPageUser(Map<String, Object> params, int page, int pageSize);
 
     List<UserCredential> loginCredential();
 }

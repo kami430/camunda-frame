@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @NoRepositoryBean
-public interface BaseJpaRepository<T,ID extends Serializable> extends JpaRepository<T,ID> {
+public interface BaseJpaRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 
     Boolean saveEntity(T entity);
 
@@ -21,11 +21,11 @@ public interface BaseJpaRepository<T,ID extends Serializable> extends JpaReposit
 
     Boolean deleteByIds(List<ID> ids);
 
-    Boolean update(T entity,ID id);
+    Boolean update(T entity, ID id);
 
     T findByKey(ID id);
 
-    List<T> findByField(String field,Object value);
+    List<T> findByField(String field, Object value);
 
     T findByExample(T entity);
 
@@ -47,7 +47,7 @@ public interface BaseJpaRepository<T,ID extends Serializable> extends JpaReposit
 
     T findOne(Param param);
 
-    List<T> findByMoreField(Map<String,Object> fields);
+    List<T> findByMoreField(Map<String, Object> fields);
 
     List<T> findByMoreField(Param param);
 
@@ -55,9 +55,9 @@ public interface BaseJpaRepository<T,ID extends Serializable> extends JpaReposit
 
     List<T> findPageByMoreField(Param param, Pageable pageable);
 
-    Integer findCount(Map<String,Object> fields);
+    Long findCount(Map<String, Object> fields);
 
-    Integer findCount(Param param);
+    Long findCount(Param param);
 
     Class<T> getClazz();
 

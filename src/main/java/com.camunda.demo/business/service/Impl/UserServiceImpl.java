@@ -115,9 +115,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<LoginUser> findPageUser(Map<String,Object> params, int page,int pageSize) {
-        Pager pager = Pager.of(page,pageSize);
-        return userDao.findPageByMoreField(params,pager);
+    public Pager<LoginUser> findPageUser(Map<String, Object> params, int page, int pageSize) {
+        Pager<LoginUser> pager = Pager.of(page, pageSize,"id desc,name");
+        pager.setData(userDao.findPageByMoreField(userDao.param(), pager.pageable()))
+                .setTotal(userDao.findCount(params));
+        return pager;
     }
 
     @Override

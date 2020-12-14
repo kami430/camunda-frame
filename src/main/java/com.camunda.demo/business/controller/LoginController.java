@@ -1,5 +1,6 @@
 package com.camunda.demo.business.controller;
 
+import com.camunda.demo.base.repository.Pager;
 import com.camunda.demo.base.response.ResponseEntity;
 import com.camunda.demo.base.shiro.LoginUtils;
 import com.camunda.demo.base.utils.JxlsUtils;
@@ -50,7 +51,7 @@ public class LoginController {
     }
 
     @GetMapping("/listUser")
-    public List<LoginUser> listUser() throws Exception {
+    public Pager<LoginUser> listUser() throws Exception {
         return userService.findPageUser(new HashMap<>(), 1, 20);
     }
 
@@ -78,17 +79,8 @@ public class LoginController {
     }
 
     @GetMapping("/hali")
-    public ResponseEntity hali() {
-        try {
-            UserForm uf = new UserForm();
-            uf.setAccount("haha");
-            uf.setName("kele");
-            uf.setPassword("bilibili");
-            return ResponseEntity.ok(userService.newUser(uf));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.error(e.getMessage());
-        }
+    public void hali() {
+
     }
 
 }

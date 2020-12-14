@@ -29,7 +29,7 @@ public class AttachementServiceImpl implements AttachementService {
     @Override
     public List<Attachement> listFile(FileForm fileForm) {
         return attachementDao.findByExample(fileForm.buildEntity(),
-                Pager.of(fileForm.getPage(), fileForm.getPageSize())).getContent();
+                Pager.of(fileForm.getPage(), fileForm.getPageSize()).pageable()).getContent();
     }
 
     @Override

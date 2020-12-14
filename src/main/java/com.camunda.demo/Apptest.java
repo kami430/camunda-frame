@@ -14,7 +14,7 @@ public class Apptest {
 
     public static void main(String[] args) {
         UserForm form = new UserForm();
-        form.setStatus(5);
+        form.setStatus(IEntityStatus.ACTIVE);
         System.out.println(IConstUtils.validate(form));
         Map<String, Object> constMap = IConstUtils.getConstMap(IEntityStatus.class);
         System.out.println(constMap);

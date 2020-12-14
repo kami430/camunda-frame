@@ -9,6 +9,12 @@ import java.util.stream.Collectors;
 
 public class IConstUtils {
 
+    /**
+     * 验证对象数据的合法性
+     *
+     * @param obj 数据对象
+     * @return
+     */
     public static boolean validate(Object obj) {
         try {
             Field[] fieldsConsts = obj.getClass().getDeclaredFields();
@@ -34,6 +40,14 @@ public class IConstUtils {
         }
     }
 
+    /**
+     * 验证数据的合法性
+     *
+     * @param tClass 参考类
+     * @param value  值
+     * @param <T>    继承了Annotation的类型
+     * @return
+     */
     public static <T extends Annotation> boolean valudate(Class<T> tClass, Integer value) {
         if (value == null) return true;
         Field[] fields = tClass.getDeclaredFields();
@@ -45,6 +59,13 @@ public class IConstUtils {
         return false;
     }
 
+    /**
+     * 获取参照类的所有常量
+     *
+     * @param tClass 参考类
+     * @param <T>    继承了Annotation的类型
+     * @return
+     */
     public static <T extends Annotation> Map<String, Object> getConstMap(Class<T> tClass) {
         Map<String, Object> constMap = new HashMap<>();
         Field[] fields = tClass.getDeclaredFields();
@@ -56,6 +77,13 @@ public class IConstUtils {
         return constMap;
     }
 
+    /**
+     * 获取对象某个常量字段的说明(非常量字段和非法值返回null)
+     *
+     * @param obj       对象
+     * @param fieldName 字段名
+     * @return
+     */
     public static String getFieldRemark(Object obj, String fieldName) {
         try {
             Field[] fieldsConsts = obj.getClass().getDeclaredFields();

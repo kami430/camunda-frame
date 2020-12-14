@@ -11,6 +11,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.Query;
+import javax.persistence.criteria.*;
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseJpaRepository<T, ID> {
 
@@ -33,6 +36,7 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     private final JpaEntityInformation jpaEntityInformation;
     private final Class<T> clazz;
 
+    @SuppressWarnings("unchecked")
     public BaseJpaRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
         super(entityInformation, entityManager);
         this.entityManager = entityManager;
@@ -185,6 +189,7 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     @Override
     public List<T> findPageByHql(String hql, Map<String, Object> fields, Pageable pageable) {
         List<T> list = new ArrayList<>();
+
         try {
             Query query = entityManager.createQuery(hql);
             if (fields != null) fields.forEach((key, field) -> query.setParameter(key, field));
@@ -281,30 +286,44 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
 
     @Override
     public List<T> findPageByMoreField(Map<String, Object> fields, Pageable pageable) {
-        String tablename = clazz.getName();
         List<T> list = new ArrayList<>();
         try {
-            String sql = "from " + tablename + " u WHERE 1=1";
-            StringBuilder fieldBuilder = new StringBuilder();
-            if (fields != null) fields.forEach((field, value) -> fieldBuilder.append(" AND u." + field + "=:" + field));
-            Query query = entityManager.createQuery(sql + fieldBuilder.toString());
-            if (fields != null) fields.forEach((field, value) -> query.setParameter(field, value));
-            if (pageable != null) {
-                query.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
-                query.setMaxResults(pageable.getPageSize());
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery(clazz);
+            Root iRoot = cq.from(clazz);
+            List<Predicate> predicates = new ArrayList<>();
+            fields.forEach((key, val) -> {
+                predicates.add(cb.equal(iRoot.get(key), val));
+            });
+            if(pageable.getSort()!=null){
+                List<Order> orders = pageable.getSort().get().map(order -> {
+                    if (order.getDirection().equals(Sort.Direction.DESC))
+                        return cb.desc(iRoot.get(order.getProperty()));
+                    else return cb.asc(iRoot.get(order.getProperty()));
+                }).collect(Collectors.toList());
+                cq.orderBy(orders);
             }
-            list = query.getResultList();
-            entityManager.close();
+            cq.where(predicates.toArray(new Predicate[0]));
+            list = entityManager.createQuery(cq).getResultList();
         } catch (Exception e) {
             logger.error("----------查询列表出错----------", e);
         }
         return list;
     }
 
+
     @Override
     public List<T> findPageByMoreField(Param param, Pageable pageable) {
         List<T> list = new ArrayList<>();
         try {
+            if(pageable.getSort()!=null){
+                List<Order> orders = pageable.getSort().get().map(order -> {
+                    if (order.getDirection().equals(Sort.Direction.DESC))
+                        return param.getCriteriaBuilder().desc(param.getFrom().get(order.getProperty()));
+                    else return param.getCriteriaBuilder().asc(param.getFrom().get(order.getProperty()));
+                }).collect(Collectors.toList());
+                param.setOrders(orders);
+            }
             Query query = entityManager.createQuery(param.build());
             if (pageable != null) {
                 query.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
@@ -319,16 +338,16 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     }
 
     @Override
-    public Integer findCount(Map<String, Object> fields) {
+    public Long findCount(Map<String, Object> fields) {
         String tablename = clazz.getName();
-        Integer count = 0;
+        Long count = 0L;
         try {
-            String sql = "from " + tablename + " u WHERE 1=1";
+            String sql = "SELECT COUNT(1) FROM " + tablename + " u WHERE 1=1";
             StringBuilder fieldBuilder = new StringBuilder();
             fields.forEach((field, value) -> fieldBuilder.append(" AND u." + field + "=:" + field));
             Query query = entityManager.createQuery(sql + fieldBuilder.toString());
             fields.forEach((field, value) -> query.setParameter(field, value));
-            count = query.getMaxResults();
+            count = Long.valueOf(query.getSingleResult().toString());
             entityManager.close();
         } catch (Exception e) {
             logger.error("----------查询列表出错----------", e);
@@ -337,11 +356,11 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     }
 
     @Override
-    public Integer findCount(Param param) {
-        Integer count = 0;
+    public Long findCount(Param param) {
+        Long count = 0L;
         try {
             Query query = entityManager.createQuery(param.buildCount());
-            count = Integer.valueOf(query.getSingleResult().toString());
+            count = Long.valueOf(query.getSingleResult().toString());
             entityManager.close();
         } catch (Exception e) {
             logger.error("----------查询列表出错----------", e);
