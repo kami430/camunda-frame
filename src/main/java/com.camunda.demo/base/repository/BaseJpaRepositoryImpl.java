@@ -189,8 +189,8 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     @Override
     public List<T> findPageByHql(String hql, Map<String, Object> fields, Pageable pageable) {
         List<T> list = new ArrayList<>();
-
         try {
+            hql += isNotNullOrder(pageable) ? orderString(pageable) : "";
             Query query = entityManager.createQuery(hql);
             if (fields != null) fields.forEach((key, field) -> query.setParameter(key, field));
             if (pageable != null) {
@@ -229,6 +229,7 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     public List<Map> findPageBySql(String sql, Map<String, Object> fields, Pageable pageable) {
         List<Map> list = new ArrayList<>();
         try {
+            sql += isNotNullOrder(pageable) ? orderString(pageable) : "";
             Query query = entityManager.createNativeQuery(sql);
             if (fields != null) fields.forEach((key, field) -> query.setParameter(key, field));
             query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
@@ -295,7 +296,7 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
             fields.forEach((key, val) -> {
                 predicates.add(cb.equal(iRoot.get(key), val));
             });
-            if(pageable.getSort()!=null){
+            if (isNotNullOrder(pageable)) {
                 List<Order> orders = pageable.getSort().get().map(order -> {
                     if (order.getDirection().equals(Sort.Direction.DESC))
                         return cb.desc(iRoot.get(order.getProperty()));
@@ -304,19 +305,23 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
                 cq.orderBy(orders);
             }
             cq.where(predicates.toArray(new Predicate[0]));
-            list = entityManager.createQuery(cq).getResultList();
+            Query query = entityManager.createQuery(cq);
+            if (pageable != null) {
+                query.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
+                query.setMaxResults(pageable.getPageSize());
+            }
+            list = query.getResultList();
         } catch (Exception e) {
             logger.error("----------查询列表出错----------", e);
         }
         return list;
     }
 
-
     @Override
     public List<T> findPageByMoreField(Param param, Pageable pageable) {
         List<T> list = new ArrayList<>();
         try {
-            if(pageable.getSort()!=null){
+            if (isNotNullOrder(pageable)) {
                 List<Order> orders = pageable.getSort().get().map(order -> {
                     if (order.getDirection().equals(Sort.Direction.DESC))
                         return param.getCriteriaBuilder().desc(param.getFrom().get(order.getProperty()));
@@ -413,7 +418,6 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         }
     }
 
-
     /**
      * 获取源对象空值字段
      *
@@ -430,6 +434,37 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         }
         String[] result = new String[emptyNames.size()];
         return emptyNames.toArray(result);
+    }
+
+    /**
+     * 判断分页排序是否为空
+     *
+     * @param pageable
+     * @return
+     */
+    private boolean isNotNullOrder(Pageable pageable) {
+        return pageable != null && pageable.getSort() != null && pageable.getSort().get().count() != 0;
+    }
+
+    /**
+     * 获取排序字符串
+     *
+     * @param pageable
+     * @return
+     */
+    private String orderString(Pageable pageable) {
+        if (pageable == null || pageable.getSort() == null || pageable.getSort().get().count() == 0L) return "";
+        StringBuilder builder = new StringBuilder(" ORDER BY ");
+        List<String> orders = new ArrayList<>();
+        pageable.getSort().get().forEach(order -> {
+            if (order.getDirection().equals(Sort.Direction.DESC)) {
+                orders.add(order.getProperty() + " DESC");
+            } else {
+                orders.add(order.getProperty());
+            }
+        });
+        builder.append(String.join(",", orders));
+        return builder.toString();
     }
 
     /**

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -116,8 +117,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Pager<LoginUser> findPageUser(Map<String, Object> params, int page, int pageSize) {
-        Pager<LoginUser> pager = Pager.of(page, pageSize,"id desc,name");
-        pager.setData(userDao.findPageByMoreField(userDao.param(), pager.pageable()))
+        Pager<LoginUser> pager = Pager.of(page, pageSize);
+        pager.setData(userDao.findPageByMoreField(new HashMap<>(), pager.pageable()))
                 .setTotal(userDao.findCount(params));
         return pager;
     }

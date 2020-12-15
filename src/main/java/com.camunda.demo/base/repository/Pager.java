@@ -1,7 +1,6 @@
 package com.camunda.demo.base.repository;
 
 import org.springframework.data.domain.AbstractPageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.Arrays;
@@ -79,23 +78,22 @@ public class Pager<T> {
         return this.data;
     }
 
-    public Pageable pageable() {
+    public PageableImpl pageable() {
         if (null == this.sort || "".equals(this.sort.trim()))
-            return Pageable.of(this.page, this.size);
+            return PageableImpl.of(this.page, this.size);
         String[] sorts = this.sort.split(",");
-        Sort sortable = Sort.by(
-                Arrays.asList(sorts).stream().map(st -> {
-                    String[] starr = st.split(" ");
-                    if (starr.length == 2) {
-                        if ("desc".equals(starr[1].trim().toLowerCase()))
-                            return Sort.Order.desc(starr[0]);
-                        else return Sort.Order.asc(starr[0]);
-                    } else return Sort.Order.asc(starr[0]);
-                }).collect(Collectors.toList()));
-        return Pageable.of(this.page, this.size, sortable);
+        Sort sortable = Sort.by(Arrays.asList(sorts).stream().map(st -> {
+            String[] starr = st.trim().split("\\s+");
+            if (starr.length == 2) {
+                if ("desc".equals(starr[1].trim().toLowerCase()))
+                    return Sort.Order.desc(starr[0]);
+                else return Sort.Order.asc(starr[0]);
+            } else return Sort.Order.asc(st.trim());
+        }).collect(Collectors.toList()));
+        return PageableImpl.of(this.page, this.size, sortable);
     }
 
-    public static class Pageable extends AbstractPageRequest {
+    public static class PageableImpl extends AbstractPageRequest {
 
         private Integer pageNumber;
 
@@ -103,19 +101,19 @@ public class Pager<T> {
 
         private Sort sort;
 
-        public static Pageable of(int page, int size) {
+        public static PageableImpl of(int page, int size) {
             return of(page, size, Sort.unsorted());
         }
 
-        public static Pageable of(int page, int size, Sort sort) {
-            return new Pageable(page, size, sort);
+        public static PageableImpl of(int page, int size, Sort sort) {
+            return new PageableImpl(page, size, sort == null ? Sort.unsorted() : sort);
         }
 
-        public static Pageable of(int page, int size, Sort.Direction direction, String... properties){
-            return of(page,size,Sort.by(direction,properties));
+        public static PageableImpl of(int page, int size, Sort.Direction direction, String... properties) {
+            return of(page, size, Sort.by(direction, properties));
         }
 
-        protected Pageable(int page, int size, Sort sort) {
+        protected PageableImpl(int page, int size, Sort sort) {
             super(page, size);
             if (page < 1) throw new IllegalArgumentException("Page index must not be less than zero!");
             this.pageNumber = page;
@@ -144,18 +142,18 @@ public class Pager<T> {
         }
 
         @Override
-        public Pageable next() {
-            return new Pageable(getPageNumber() + 1, getPageSize(), getSort());
+        public PageableImpl next() {
+            return new PageableImpl(getPageNumber() + 1, getPageSize(), getSort());
         }
 
         @Override
-        public Pageable previous() {
-            return getPageNumber() == 1 ? this : new Pageable(getPageNumber() - 1, getPageSize(), getSort());
+        public PageableImpl previous() {
+            return getPageNumber() == 1 ? this : new PageableImpl(getPageNumber() - 1, getPageSize(), getSort());
         }
 
         @Override
-        public Pageable first() {
-            return new Pageable(1, getPageSize(), getSort());
+        public PageableImpl first() {
+            return new PageableImpl(1, getPageSize(), getSort());
         }
 
         @Override

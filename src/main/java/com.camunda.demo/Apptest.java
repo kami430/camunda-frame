@@ -1,28 +1,25 @@
 package com.camunda.demo;
 
+import com.camunda.demo.base.repository.Pager;
 import com.camunda.demo.business.form.UserForm;
 import com.camunda.demo.dataInterface.constant.IEntityStatus;
 import com.camunda.demo.base.constant.IConst;
 import com.camunda.demo.base.constant.IConstUtils;
 import com.camunda.demo.base.constant.IConstInfo;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
 public class Apptest {
 
     public static void main(String[] args) {
-        UserForm form = new UserForm();
-        form.setStatus(IEntityStatus.ACTIVE);
-        System.out.println(IConstUtils.validate(form));
-        Map<String, Object> constMap = IConstUtils.getConstMap(IEntityStatus.class);
-        System.out.println(constMap);
-        String remark = IConstUtils.getFieldRemark(form, "status");
-        System.out.println(remark);
-        System.out.println(IConstUtils.valudate(IEntityStatus.class, null));
-        System.out.println(IConstUtils.valudate(IEntityStatus.class, 5));
-        System.out.println(IConstUtils.valudate(IEntityStatus.class, IEntityStatus.ACTIVE));
+        Pager pager = Pager.of(1, 10,null);
+        System.out.println(orderString(pager.pageable()));
     }
 
     public static void fo(Object obj) throws IllegalAccessException {
@@ -60,5 +57,20 @@ public class Apptest {
 
     public static class Student extends People {
 
+    }
+
+    public static String orderString(Pageable pageable) {
+        if (pageable == null || pageable.getSort() == null || pageable.getSort().get().count() == 0L) return "";
+        StringBuilder builder = new StringBuilder(" ORDER BY ");
+        List<String> orders = new ArrayList<>();
+        pageable.getSort().get().forEach(order -> {
+            if (order.getDirection().equals(Sort.Direction.DESC)) {
+                orders.add(order.getProperty() + " DESC");
+            } else {
+                orders.add(order.getProperty());
+            }
+        });
+        builder.append(String.join(",", orders));
+        return builder.toString();
     }
 }
