@@ -51,7 +51,7 @@ public class LoginController {
     }
 
     @GetMapping("/listUser")
-    public Pager<LoginUser> listUser() throws Exception {
+    public Pager<LoginUser> listUser() {
         return userService.findPageUser(new HashMap<>(), 1, 20);
     }
 

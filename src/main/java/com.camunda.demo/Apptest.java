@@ -18,8 +18,22 @@ import java.util.function.Consumer;
 public class Apptest {
 
     public static void main(String[] args) {
-        Pager pager = Pager.of(1, 10,null);
-        System.out.println(orderString(pager.pageable()));
+        String sql = "select * from user";
+        String hql = "FROM LoginUser";
+        String hql2 = "select id from LoginUser";
+        System.out.println(getCountSql(sql, false));
+        System.out.println(getCountSql(hql, true));
+        System.out.println(getCountSql(hql2, true));
+    }
+
+    public static String getCountSql(String sql, boolean hql) {
+        if (hql) {
+            String regexStart = "^(?i)from\\s{1}| (?i)from ";
+            String[] rs = sql.split(regexStart, 2);
+            System.out.println(rs.length);
+            if (rs.length == 2) return "SELECT COUNT(*) FROM " + rs[1];
+        }
+        return "SELECT COUNT(*) FROM (" + sql + ") t";
     }
 
     public static void fo(Object obj) throws IllegalAccessException {

@@ -117,9 +117,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Pager<LoginUser> findPageUser(Map<String, Object> params, int page, int pageSize) {
-        Pager<LoginUser> pager = Pager.of(page, pageSize);
-        pager.setData(userDao.findPageByMoreField(new HashMap<>(), pager.pageable()))
-                .setTotal(userDao.findCount(params));
+        Pager<LoginUser> pager = Pager.of(page, pageSize, "id desc,name");
+        pager.setData(userDao.findPageByHql("FROM LoginUser", params, pager.pageable()))
+                .setTotal(userDao.findCount("FROM LoginUser", params, true));
         return pager;
     }
 

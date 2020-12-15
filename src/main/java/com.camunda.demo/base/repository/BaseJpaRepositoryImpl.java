@@ -374,6 +374,22 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
     }
 
     @Override
+    public Long findCount(String hql, Map<String, Object> fields, boolean isHql) {
+        Long count = 0L;
+        Query query = null;
+        try {
+            String countSql = getCountSql(hql, isHql);
+            query = isHql ? entityManager.createQuery(countSql) : entityManager.createNativeQuery(countSql);
+            for (String field : fields.keySet()) query.setParameter(field, fields.get(field));
+            count = Long.valueOf(query.getSingleResult().toString());
+            entityManager.close();
+        } catch (Exception e) {
+            logger.error("----------查询数量出错----------", e);
+        }
+        return count;
+    }
+
+    @Override
     public Class<T> getClazz() {
         return this.clazz;
     }
@@ -465,6 +481,22 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         });
         builder.append(String.join(",", orders));
         return builder.toString();
+    }
+
+    /**
+     * 获取sql/hql语句的count语句
+     *
+     * @param sql   传入的sql
+     * @param isHql 是否hql
+     * @return
+     */
+    public static String getCountSql(String sql, boolean isHql) {
+        if (isHql) {
+            String regexStart = "^(?i)from\\s{1}| (?i)from ";
+            String[] rs = sql.split(regexStart, 2);
+            if (rs.length == 2) return "SELECT COUNT(*) FROM " + rs[1];
+        }
+        return "SELECT COUNT(*) FROM (" + sql + ") t";
     }
 
     /**

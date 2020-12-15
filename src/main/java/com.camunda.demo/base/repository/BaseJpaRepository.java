@@ -58,6 +58,8 @@ public interface BaseJpaRepository<T, ID extends Serializable> extends JpaReposi
     Long findCount(Map<String, Object> fields);
 
     Long findCount(Param param);
+    
+    Long findCount(String hql, Map<String, Object> fields, boolean isHql);
 
     Class<T> getClazz();
 
