@@ -1,6 +1,7 @@
 package com.camunda.demo.business.service.Impl;
 
 import com.camunda.demo.base.repository.Pager;
+import com.camunda.demo.base.repository.Param;
 import com.camunda.demo.base.response.BusinessException;
 import com.camunda.demo.base.utils.EncryptUtils;
 import com.camunda.demo.business.form.UserForm;
@@ -117,9 +118,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Pager<LoginUser> findPageUser(Map<String, Object> params, int page, int pageSize) {
-        Pager<LoginUser> pager = Pager.of(page, pageSize, "id desc,name");
-        pager.setData(userDao.findPageByHql("FROM LoginUser", params, pager.pageable()))
-                .setTotal(userDao.findCount("FROM LoginUser", params, true));
+        Pager<LoginUser> pager = Pager.of(page, pageSize);
+        Param param = credientialDao.param().leftJoin("loginUser",
+                pa -> pa.eq("name", "jordan"))
+                .addOrder("id", "asc")
+                .addOrder("loginUser.name", "desc");
+        pager.setData(credientialDao.findPageByMoreField(param, pager.pageable()).stream()
+                .map(cred -> {
+                    LoginUser user = cred.getLoginUser();
+                    user.getName();
+                    return user;
+                })
+                .collect(Collectors.toList())).setTotal(credientialDao.findCount(param));
         return pager;
     }
 

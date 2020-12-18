@@ -3,12 +3,14 @@ package com.camunda.demo.base.repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class Param<T> {
 
@@ -36,6 +38,9 @@ public class Param<T> {
     private List<Param> orParam;
     private String groupBy;
 
+    private Map<String, Param> joinMap = new HashMap<>();
+    private boolean isCountModel = false;
+
     private Param() {
     }
 
@@ -62,6 +67,7 @@ public class Param<T> {
 
     /**
      * 获取单个数据
+     *
      * @return
      */
     public T findOne() {
@@ -71,13 +77,14 @@ public class Param<T> {
             t = (T) query.getSingleResult();
             entityManager.close();
         } catch (Exception e) {
-            LOGGER.error("----------查询对象出错----------",e);
+            LOGGER.error("----------查询对象出错----------", e);
         }
         return t;
     }
 
     /**
      * 获取所有数据
+     *
      * @return
      */
     public List<T> findList() {
@@ -86,33 +93,37 @@ public class Param<T> {
 
     /**
      * 获取分页数据
+     *
      * @param pageable
      * @return
      */
     public List<T> findPage(Pageable pageable) {
         List<T> t = new ArrayList<>();
         try {
+            if (isNotNullOrder(pageable)) {
+                pageable.getSort().get().forEach(order -> setOrder(null, null).addOrder(order.getProperty(), order.getDirection().name()));
+            }
             Query query = entityManager.createQuery(build());
-            if(pageable!=null){
+            if (pageable != null) {
                 query.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
                 query.setMaxResults(pageable.getPageSize());
             }
             t = query.getResultList();
             entityManager.close();
         } catch (Exception e) {
-            LOGGER.error("----------查询列表出错----------",e);
+            LOGGER.error("----------查询列表出错----------", e);
         }
         return t;
     }
 
-    public Integer findCount(){
-        Integer count = 0;
+    public Long findCount() {
+        Long count = 0L;
         try {
             Query query = entityManager.createQuery(buildCount());
-            count = Integer.valueOf(query.getSingleResult().toString());
+            count = Long.valueOf(query.getSingleResult().toString());
             entityManager.close();
         } catch (Exception e) {
-            LOGGER.error("----------查询数据总数出错----------",e);
+            LOGGER.error("----------查询数据总数出错----------", e);
         }
         return count;
     }
@@ -126,13 +137,14 @@ public class Param<T> {
     private Param<T> initJoinQuery(String joinPropertyName, JoinType joinType) {
         Param joinParam = new Param();
         Join join = this.getFrom().join(joinPropertyName, joinType);
-        joinParam.clazz = this.getClazz();
+        joinParam.clazz = join.getAttribute().getJavaType();
         joinParam.entityManager = this.getEntityManager();
         joinParam.criteriaBuilder = this.getCriteriaBuilder();
         joinParam.criteriaQuery = this.getCriteriaQuery();
         joinParam.from = join;
         joinParam.predicates = new ArrayList();
         joinParam.orders = new ArrayList();
+        joinMap.put(joinPropertyName, joinParam);
         return joinParam;
     }
 
@@ -363,12 +375,21 @@ public class Param<T> {
     public Param<T> addOrder(String propertyName, String order) {
         if (order == null || propertyName == null)
             return this;
+        String realProp = propertyName;
+        Param joinParam = this;
+        if (propertyName.contains(".")) {
+            String[] orderParam = realProp.split("\\.");
+            realProp = orderParam[orderParam.length - 1];
+            for (int i = 0; i < orderParam.length - 1; i++) {
+                joinParam = (Param) joinParam.joinMap.get(orderParam[i]);
+            }
+        }
         if (this.orders == null)
             this.orders = new ArrayList();
         if (order.equalsIgnoreCase("asc"))
-            this.orders.add(criteriaBuilder.asc(from.get(propertyName)));
+            this.orders.add(joinParam.criteriaBuilder.asc(joinParam.from.get(realProp)));
         else if (order.equalsIgnoreCase("desc"))
-            this.orders.add(criteriaBuilder.desc(from.get(propertyName)));
+            this.orders.add(joinParam.criteriaBuilder.desc(joinParam.from.get(realProp)));
         return this;
     }
 
@@ -400,6 +421,7 @@ public class Param<T> {
      */
     public CriteriaQuery<T> build() {
         this.criteriaQuery.select(this.from);
+        this.isCountModel = false;
         return buildQuery();
     }
 
@@ -415,15 +437,18 @@ public class Param<T> {
 
     /**
      * 生成查询
+     *
      * @return
      */
-    private CriteriaQuery buildQuery(){
+    private CriteriaQuery buildQuery() {
         this.criteriaQuery.where(predicates.toArray(new Predicate[0]));
         if (!isNullOrEmpty(groupBy)) {
             criteriaQuery.groupBy(from.get(groupBy));
         }
-        if (this.orders != null) {
+        if (this.orders != null && !this.isCountModel) {
             criteriaQuery.orderBy(orders);
+        } else {
+            criteriaQuery.orderBy(new ArrayList<>());
         }
         return criteriaQuery;
     }
@@ -435,6 +460,7 @@ public class Param<T> {
      */
     private Param setCountMode() {
         this.criteriaQuery.select(this.criteriaBuilder.count(this.from));
+        this.isCountModel = true;
         return this;
     }
 
@@ -493,6 +519,10 @@ public class Param<T> {
         this.groupBy = groupBy;
     }
 
+    public Param getJoinParam(String joinName) {
+        return this.joinMap.get(joinName);
+    }
+
     /**
      * 排除空值
      */
@@ -501,5 +531,15 @@ public class Param<T> {
             return value == null || "".equals(value);
         }
         return value == null;
+    }
+
+    /**
+     * 判断分页排序是否为空
+     *
+     * @param pageable
+     * @return
+     */
+    private boolean isNotNullOrder(Pageable pageable) {
+        return pageable != null && pageable.getSort() != null && pageable.getSort().get().count() != 0;
     }
 }

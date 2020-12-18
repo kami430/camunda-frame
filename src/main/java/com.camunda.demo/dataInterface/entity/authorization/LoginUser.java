@@ -28,9 +28,7 @@ public class LoginUser implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Permission> permissions;
-
-    //    @Convert(converter = EntityStatus.Convert.class)
-    //    private EntityStatus status;
+    
     @IConst(IEntityStatus.class)
     private Integer status;
 }

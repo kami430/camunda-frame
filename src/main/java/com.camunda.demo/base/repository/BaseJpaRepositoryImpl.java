@@ -322,12 +322,7 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         List<T> list = new ArrayList<>();
         try {
             if (isNotNullOrder(pageable)) {
-                List<Order> orders = pageable.getSort().get().map(order -> {
-                    if (order.getDirection().equals(Sort.Direction.DESC))
-                        return param.getCriteriaBuilder().desc(param.getFrom().get(order.getProperty()));
-                    else return param.getCriteriaBuilder().asc(param.getFrom().get(order.getProperty()));
-                }).collect(Collectors.toList());
-                param.setOrders(orders);
+                pageable.getSort().get().forEach(order -> param.setOrder(null, null).addOrder(order.getProperty(), order.getDirection().name()));
             }
             Query query = entityManager.createQuery(param.build());
             if (pageable != null) {

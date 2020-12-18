@@ -18,45 +18,7 @@ import java.util.function.Consumer;
 public class Apptest {
 
     public static void main(String[] args) {
-        String sql = "select * from user";
-        String hql = "FROM LoginUser";
-        String hql2 = "select id from LoginUser";
-        System.out.println(getCountSql(sql, false));
-        System.out.println(getCountSql(hql, true));
-        System.out.println(getCountSql(hql2, true));
-    }
 
-    public static String getCountSql(String sql, boolean hql) {
-        if (hql) {
-            String regexStart = "^(?i)from\\s{1}| (?i)from ";
-            String[] rs = sql.split(regexStart, 2);
-            System.out.println(rs.length);
-            if (rs.length == 2) return "SELECT COUNT(*) FROM " + rs[1];
-        }
-        return "SELECT COUNT(*) FROM (" + sql + ") t";
-    }
-
-    public static void fo(Object obj) throws IllegalAccessException {
-        Class c = obj.getClass();
-        Field[] fs = c.getDeclaredFields();
-        for (Field field : fs) {
-            IConst ca = field.getDeclaredAnnotation(IConst.class);
-            if (ca != null) {
-                field.setAccessible(true);
-                Integer a = (Integer) field.get(obj);
-                Class entity = ca.value();
-                Field[] fields = entity.getDeclaredFields();
-                for (Field fd : fields) {
-                    fd.setAccessible(true);
-                    IConstInfo info = fd.getDeclaredAnnotation(IConstInfo.class);
-                    Integer code = info.code();
-                    String remark = info.remark();
-                    System.out.println(code);
-                    System.out.println(remark);
-                }
-            }
-            System.out.println("haha");
-        }
     }
 
     public static <T> void instance(Object target, Class<T> clazz, Consumer<T> consumer) {
