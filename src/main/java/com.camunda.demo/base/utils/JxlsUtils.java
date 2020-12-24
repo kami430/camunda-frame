@@ -19,10 +19,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * xls模版导出
@@ -32,32 +31,38 @@ public class JxlsUtils {
     /*模版目录*/
     private final static String BASE_EXCEL_TEMPLATE_PATH = "xlstmpl/";
 
-    private static Map<String, Object> funcs = new HashMap<>();
-
     /*基础自定义方法*/
     private final static JxlsFunc JXLS_FUNC = new JxlsFunc();
 
     public static void exportExcel(String templatePath, HttpServletResponse response, Map<String, Object> model) {
+        exportExcel(templatePath, response, model, null);
+    }
+
+    public static void exportExcel(String templatePath, HttpServletResponse response, Map<String, Object> model, Map<String, Object> funcMap) {
         File template = getTemplate(templatePath);
         try (InputStream inputStream = new FileInputStream(template);
              OutputStream outputStream = response.getOutputStream()) {
             response.setContentType("application/x-download");
             response.addHeader("Content-Disposition", "attachment;filename=" + getDownloadFileName(template.getName()));
             response.setCharacterEncoding("UTF-8");
-            exportExcel(inputStream, outputStream, model);
+            exportExcel(inputStream, outputStream, model, funcMap);
         } catch (Exception e) {
             throw new BusinessException(ResponseCode.SERVER_ERROR, e.getMessage(), e);
         }
     }
 
     public static void previewExcel(String templatePath, HttpServletResponse response, Map<String, Object> model) {
+        previewExcel(templatePath, response, model, null);
+    }
+
+    public static void previewExcel(String templatePath, HttpServletResponse response, Map<String, Object> model, Map<String, Object> funcMap) {
         File template = getTemplate(templatePath);
         try (InputStream inputStream = new FileInputStream(template);
              OutputStream outputStream = response.getOutputStream()) {
             response.setContentType(getContentType(templatePath));
             response.addHeader("Content-Disposition", "inline;filename=" + getDownloadFileName(template.getName()));
             response.setCharacterEncoding("UTF-8");
-            exportExcel(inputStream, outputStream, model);
+            exportExcel(inputStream, outputStream, model, funcMap);
         } catch (Exception e) {
             throw new BusinessException(ResponseCode.SERVER_ERROR, e.getMessage(), e);
         }
@@ -67,12 +72,25 @@ public class JxlsUtils {
         exportExcel(new FileInputStream(in), new FileOutputStream(out), model);
     }
 
+    public static void exportExcel(File in, File out, Map<String, Object> model, Map<String, Object> funcMap) throws IOException {
+        exportExcel(new FileInputStream(in), new FileOutputStream(out), model, funcMap);
+    }
+
     public static void exportExcel(String templatePath, OutputStream os, Map<String, Object> model) throws IOException {
         File template = getTemplate(templatePath);
         exportExcel(new FileInputStream(template), os, model);
     }
 
+    public static void exportExcel(String templatePath, OutputStream os, Map<String, Object> model, Map<String, Object> funcMap) throws IOException {
+        File template = getTemplate(templatePath);
+        exportExcel(new FileInputStream(template), os, model, funcMap);
+    }
+
     public static void exportExcel(InputStream is, OutputStream os, Map<String, Object> model) throws IOException {
+        exportExcel(is, os, model, null);
+    }
+
+    public static void exportExcel(InputStream is, OutputStream os, Map<String, Object> model, Map<String, Object> funcMap) throws IOException {
         Context context = PoiTransformer.createInitialContext();
         if (model != null) {
             for (String key : model.keySet()) {
@@ -85,42 +103,19 @@ public class JxlsUtils {
         JexlExpressionEvaluator evaluator = (JexlExpressionEvaluator) transformer.getTransformationConfig()
                 .getExpressionEvaluator();
         //函数强制，自定义功能
+        Map<String, Object> funcs = new HashMap<>();
+        if (funcMap != null && funcMap.size() != 0) {
+            if (funcMap.containsKey(JxlsFunc.BASE_EXP_NAMESPACE) || funcMap.containsKey(JxlsFunc.BASE_NAMESPACE)) {
+                throw new BusinessException(ResponseCode.SERVER_ERROR, "不能与基础域:ju/jx冲突");
+            }
+            funcs.putAll(funcMap);
+        }
         funcs.put(JxlsFunc.BASE_EXP_NAMESPACE, JXLS_FUNC); //添加自定义功能
         JexlBuilder jb = new JexlBuilder();
-        jb.namespaces(funcs);
         //jb.silent(true); //设置静默模式，不报警告
-        JexlEngine je = jb.create();
-        evaluator.setJexlEngine(je);
+        evaluator.setJexlEngine(jb.namespaces(funcs).create());
         //必须要这个，否者表格函数统计会错乱
         jxlsHelper.setUseFastFormulaProcessor(false).processTemplate(context, transformer);
-    }
-
-    /**
-     * 添加自定义方法(与setFunctions只能生效一个)
-     */
-    public static JxlsUtils setFunc(String namespace, Object bean) {
-        funcs.clear();
-        if (JxlsFunc.BASE_NAMESPACE.equals(namespace)
-                || JxlsFunc.BASE_EXP_NAMESPACE.equals(namespace))
-            throw new BusinessException(ResponseCode.SERVER_ERROR,"");
-        funcs.put(namespace, bean);
-        return null;
-    }
-
-    /**
-     * 添加自定义方法(与setFunction只能生效一个)
-     */
-    public static JxlsUtils setFunc(Map<String, Object> funcstions) {
-        funcs.clear();
-        Set<String> keys = funcstions.keySet();
-        for (String key : keys) {
-            if (JxlsFunc.BASE_NAMESPACE.equals(key)
-                    || JxlsFunc.BASE_EXP_NAMESPACE.equals(key)) return null;
-        }
-        funcstions.forEach((key, bean) -> {
-            funcs.put(key, bean);
-        });
-        return null;
     }
 
     /**
@@ -166,6 +161,46 @@ public class JxlsUtils {
         }
     }
 
+    public static <T> JxlsPager getJxlsPager(List<T> data, int size) {
+        Integer limit = data.size() % size == 0 ? data.size() / size : data.size() + 1;
+        if (limit > 500) throw new BusinessException(ResponseCode.SERVER_ERROR, "sheet数量不能超过500");
+        List<List<T>> dataList = Stream.iterate(0, n -> n + 1).limit(limit).parallel()
+                .map(a -> data.stream().skip(a * size).limit(size).parallel().collect(Collectors.toList()))
+                .collect(Collectors.toList());
+        List<String> sheetNames = Stream.iterate(0, n -> n + 1).limit(limit).parallel()
+                .map(a -> "sheet" + a).collect(Collectors.toList());
+        return new JxlsPager(size, dataList, sheetNames);
+    }
+
+    public static class JxlsPager<T> {
+        private int pageSize;
+        private int listSize;
+        private List<List<T>> dataList;
+        private List<String> sheetNames;
+
+        public JxlsPager(int pageSize, List<List<T>> dataList, List<String> sheetNames) {
+            this.pageSize = pageSize;
+            this.listSize = dataList.size();
+            this.dataList = dataList;
+            this.sheetNames = sheetNames;
+        }
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public int getListSize() {
+            return listSize;
+        }
+
+        public List<List<T>> getDataList() {
+            return dataList;
+        }
+
+        public List<String> getSheetNames() {
+            return sheetNames;
+        }
+    }
 
     /**
      * 基本自定义函数
@@ -226,4 +261,5 @@ public class JxlsUtils {
             return idCard;
         }
     }
+
 }

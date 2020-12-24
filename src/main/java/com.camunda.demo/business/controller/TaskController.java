@@ -74,7 +74,7 @@ public class TaskController {
     }
 
     @GetMapping("/rule")
-    public LoginUser rule() throws IOException {
+    public LoginUser rule() {
         KieSession session = DroolsUtils.newSession("rule01", "rule02");
         LoginUser user = new LoginUser();
         user.setName("haha");
