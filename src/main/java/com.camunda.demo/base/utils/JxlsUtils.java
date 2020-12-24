@@ -161,44 +161,42 @@ public class JxlsUtils {
         }
     }
 
-    public static <T> JxlsPager getJxlsPager(List<T> data, int size) {
+    public static <T> List<Pager> getPagers(List<T> data, int size) {
         Integer limit = data.size() % size == 0 ? data.size() / size : data.size() + 1;
         if (limit > 500) throw new BusinessException(ResponseCode.SERVER_ERROR, "sheet数量不能超过500");
-        List<List<T>> dataList = Stream.iterate(0, n -> n + 1).limit(limit).parallel()
-                .map(a -> data.stream().skip(a * size).limit(size).parallel().collect(Collectors.toList()))
-                .collect(Collectors.toList());
-        List<String> sheetNames = Stream.iterate(0, n -> n + 1).limit(limit).parallel()
-                .map(a -> "sheet" + a).collect(Collectors.toList());
-        return new JxlsPager(size, dataList, sheetNames);
+        return Stream.iterate(0, n -> n + 1).limit(limit).parallel()
+                .map(a -> { List<T> list = data.stream().skip(a * size).limit(size).parallel().collect(Collectors.toList());
+                    String sheetName = "sheet" + a;
+                    return new Pager(list,sheetName);
+                }).collect(Collectors.toList());
     }
 
-    public static class JxlsPager<T> {
-        private int pageSize;
-        private int listSize;
-        private List<List<T>> dataList;
-        private List<String> sheetNames;
+    public static List<String> getSheetNames(List<Pager> pagers){
+        if(pagers==null||pagers.size()==0)return null;
+        return pagers.stream().map(Pager::getSheetName).collect(Collectors.toList());
+    }
 
-        public JxlsPager(int pageSize, List<List<T>> dataList, List<String> sheetNames) {
-            this.pageSize = pageSize;
-            this.listSize = dataList.size();
-            this.dataList = dataList;
-            this.sheetNames = sheetNames;
+    /**
+     * 多sheet分组
+     * @param <T>
+     */
+    public static class Pager<T> {
+        private int size;
+        private List<T> data;
+        private String sheetName;
+
+        public Pager(List<T> data, String sheetName) {
+            this.size = data.size();
+            this.data = data;
+            this.sheetName = sheetName;
         }
 
-        public int getPageSize() {
-            return pageSize;
+        public List<T> getData() {
+            return data;
         }
 
-        public int getListSize() {
-            return listSize;
-        }
-
-        public List<List<T>> getDataList() {
-            return dataList;
-        }
-
-        public List<String> getSheetNames() {
-            return sheetNames;
+        public String getSheetName() {
+            return sheetName;
         }
     }
 

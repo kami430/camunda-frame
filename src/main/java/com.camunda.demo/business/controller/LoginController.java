@@ -63,7 +63,7 @@ public class LoginController {
     @GetMapping("/tmpl")
     public void tmpl(HttpServletResponse response) {
         List<Map<String, Object>> models = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             Map<String, Object> model = new HashMap<>();
             model.put("name", "bilibili+" + i);
             model.put("sex", "男+" + i);
@@ -72,10 +72,15 @@ public class LoginController {
             model.put("idCard", "441283199812104623");
             models.add(model);
         }
+        List<JxlsUtils.Pager> pager = JxlsUtils.getPagers(models,10);
         Map<String, Object> dataList = new HashMap<>();
         dataList.put("dt", models);
         dataList.put("deptname", "肇庆市");
-        JxlsUtils.exportExcel("tmpl.xlsx", response, dataList);
+        dataList.put("pages",pager);
+        dataList.put("sheetnames",JxlsUtils.getSheetNames(pager));
+        Map<String,Object> funcMap = new HashMap<>();
+        funcMap.put("fn",new JxlsUtils.JxlsFunc());
+        JxlsUtils.exportExcel("multitmpl.xlsx", response, dataList,funcMap);
     }
 
     @GetMapping("/hali")
