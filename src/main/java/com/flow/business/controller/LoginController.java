@@ -1,11 +1,13 @@
 package com.flow.business.controller;
 
 import com.flow.base.repository.Pager;
+import com.flow.base.repository.Param;
 import com.flow.base.response.ResponseEntity;
 import com.flow.base.shiro.LoginUtils;
 import com.flow.base.utils.JxlsUtils;
 import com.flow.business.form.UserForm;
 import com.flow.business.service.UserService;
+import com.flow.dataInterface.dao.CredientialDao;
 import com.flow.dataInterface.entity.authorization.LoginUser;
 import com.flow.dataInterface.entity.authorization.UserCredential;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private CredientialDao credientialDao;
 
     @GetMapping("/sign")
     public ResponseEntity login() {
@@ -72,7 +76,7 @@ public class LoginController {
             model.put("idCard", "441283199812104623");
             models.add(model);
         }
-        Map<String,Object> dataList = new HashMap<>();
+        Map<String, Object> dataList = new HashMap<>();
         dataList.put("deptname", "肇庆市");
         dataList.put("message", "测试信息");
         Map<String, Object> funcMap = new HashMap<>();
@@ -80,8 +84,11 @@ public class LoginController {
     }
 
     @GetMapping("/hali")
-    public void hali() {
-
+    public List<Map> hali() {
+        List<String> accounts = new ArrayList<>();
+        accounts.add("haha");
+        accounts.add("bilibli");
+        return credientialDao.abc(1L, accounts);
     }
 
 }

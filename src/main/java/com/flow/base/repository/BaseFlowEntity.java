@@ -33,7 +33,7 @@ public abstract class BaseFlowEntity implements Serializable {
     protected Task task;
     // 流程参数
     @Transient
-    protected Map<String,Object> variables;
+    protected Map<String, Object> variables;
     // 流程实例（运行中）
     @Transient
     protected ProcessInstance processInstance;

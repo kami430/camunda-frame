@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 @NoRepositoryBean
 public interface BaseJpaRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
@@ -58,12 +59,14 @@ public interface BaseJpaRepository<T, ID extends Serializable> extends JpaReposi
     Long findCount(Map<String, Object> fields);
 
     Long findCount(Param param);
-    
+
     Long findCount(String hql, Map<String, Object> fields, boolean isHql);
 
     Class<T> getClazz();
 
     EntityManager getEntityManager();
+
+    String multiParamFormat(String sql, Consumer<BaseJpaRepositoryImpl.SqlFormat> action);
 
     Param<T> param();
 }

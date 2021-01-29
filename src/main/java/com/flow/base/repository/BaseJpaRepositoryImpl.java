@@ -26,6 +26,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseJpaRepository<T, ID> {
@@ -172,7 +173,9 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         List<T> list = new ArrayList<>();
         try {
             Query query = entityManager.createQuery(hql);
-            for (int i = 0; i < fields.length; i++) query.setParameter(i + 1, fields[i]);
+            for (int i = 0; i < fields.length; i++) {
+                if (hql.indexOf("?" + (i + 1)) != -1) query.setParameter(i + 1, fields[i]);
+            }
             list = query.getResultList();
             entityManager.close();
         } catch (Exception e) {
@@ -210,7 +213,9 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         List<Map> list = new ArrayList<>();
         try {
             Query query = entityManager.createNativeQuery(sql);
-            for (int i = 0; i < fields.length; i++) query.setParameter(i + 1, fields[i]);
+            for (int i = 0; i < fields.length; i++) {
+                if (sql.indexOf("?" + (i + 1)) != -1) query.setParameter(i + 1, fields[i]);
+            }
             query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
             list = query.getResultList();
             entityManager.close();
@@ -394,6 +399,13 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
         return this.entityManager;
     }
 
+    @Override
+    public String multiParamFormat(String sql, Consumer<SqlFormat> action) {
+        SqlFormat sqlFormat = new SqlFormat();
+        action.accept(sqlFormat);
+        return String.format(sql, sqlFormat.format(sql).toArray(new String[0]));
+    }
+
     /**
      * 获取类的@Id字段名
      *
@@ -503,5 +515,31 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
      */
     private void copyPropertiesExcludeNull(Object source, Object target) throws BeansException {
         BeanUtils.copyProperties(source, target, getNullPropertyNames(source));
+    }
+
+    public static class SqlFormat {
+
+        private List<String> sqls = new ArrayList<>();
+        private List<Object> values = new ArrayList<>();
+
+        public SqlFormat add(String sql, Object value) {
+            this.sqls.add(sql);
+            if (value instanceof Collection && ((Collection) value).isEmpty()) {
+                this.values.add(null);
+            } else if (value instanceof String && "".equals(((String) value).trim())) {
+                this.values.add(null);
+            } else {
+                this.values.add(value);
+            }
+            return this;
+        }
+
+        public List<String> format(String sql) {
+            List<String> fmts = new ArrayList<>();
+            for (int i = 0; i < this.sqls.size(); i++) {
+                fmts.add(this.values.get(0) == null ? "1=1" : this.sqls.get(i));
+            }
+            return fmts;
+        }
     }
 }
