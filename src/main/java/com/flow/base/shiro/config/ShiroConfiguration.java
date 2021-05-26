@@ -30,6 +30,7 @@ public class ShiroConfiguration {
         map.put("/camunda/**", "anon");                         //流程管理页面
         map.put("/unAuth/**", "anon");
         map.put("/**", "anon");                                  //对所有用户认证
+//        map.put("/**", "jwt");                                  //对所有用户认证
         shiroFilterFactoryBean.setLoginUrl("/login");           //登录
         shiroFilterFactoryBean.setSuccessUrl("/index");         //首页
         shiroFilterFactoryBean.setUnauthorizedUrl("/error");    //错误页面，认证不通过跳转
